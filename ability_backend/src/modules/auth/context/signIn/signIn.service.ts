@@ -20,7 +20,7 @@ export class SignInService {
   async execute(
     dto: SignIn.Request,
   ): Promise<SignIn.Response> {
-    const findUser = await this.prisma.user.findMany({
+    const user = await this.prisma.user.findFirst({
       where: {
         email: dto.email,
         deletedAt: {
@@ -29,10 +29,9 @@ export class SignInService {
       },
     });
 
-    if (findUser.length === 0)
+    if (!user)
       throw new ForbiddenException(INVALID_CREDENTIALS);
 
-    const user = findUser[0];
     const passMatches = await argon.verify(
       user.hash,
       dto.password,
@@ -47,7 +46,7 @@ export class SignInService {
         id: user.id,
         email: user.email,
         name: `${user.firstName} ${user.secondName || ''}`,
-        role: user.role,
+        profileId: user.profileId,
       },
     };
   }

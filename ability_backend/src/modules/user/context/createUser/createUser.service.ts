@@ -15,7 +15,13 @@ export class CreateUserService {
   async execute(
     body: CreateDto.UserRequest,
   ): Promise<Partial<User>> {
-    const { password, methods, ...data } = body;
+    const {
+      password,
+      methods,
+      profileId,
+      stateId,
+      ...data
+    } = body;
 
     const hash = await argon.hash(password);
 
@@ -31,6 +37,12 @@ export class CreateUserService {
     const user = await this.prisma.user.create({
       data: {
         ...data,
+        profile: {
+          connect: { id: profileId },
+        },
+        state: {
+          connect: { id: stateId },
+        },
         hash,
         UserMethod: {
           createMany: {

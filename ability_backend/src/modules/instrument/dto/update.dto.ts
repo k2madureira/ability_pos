@@ -7,5 +7,5 @@ export class Body {
 
   @IsString()
   @IsOptional()
-  family?: string;
+  familyId?: string;
 }

@@ -28,7 +28,7 @@ export class DeleteUserByIdService {
     this.prisma.$transaction([
       this.prisma.userMethod.updateMany({
         where: {
-          userId: id,
+          studentId: id,
         },
         data,
       }),

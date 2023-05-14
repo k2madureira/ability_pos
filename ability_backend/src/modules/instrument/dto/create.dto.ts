@@ -7,5 +7,5 @@ export class Body {
 
   @IsString()
   @IsNotEmpty()
-  family: string;
+  familyId: string;
 }
