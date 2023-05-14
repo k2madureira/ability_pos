@@ -2,15 +2,12 @@ import {
   ArrayMinSize,
   IsArray,
   IsEmail,
-  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
-  Matches,
   Validate,
 } from 'class-validator';
 import { ONE_MAIN } from '@shared/helper/config/messages';
-import { Role } from '@prisma/client';
 import { Methods, manyMain } from './default.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -48,19 +45,12 @@ export class UserRequest {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  @IsEnum(Role)
-  @Matches(
-    `^${Object.values(Role)
-      .filter((v) => typeof v !== 'number')
-      .join('|')}$`,
-    'i',
-  )
-  role: Role;
+  profileId: string;
 
   @ApiProperty()
   @IsString()
-  @IsOptional()
-  state?: string;
+  @IsNotEmpty()
+  stateId: string;
 
   @ApiProperty()
   @IsString()

@@ -23,7 +23,7 @@ export class UpdateUserService {
     id: string,
     body: UpdateDto.Body,
   ): Promise<Partial<User>> {
-    const { methods, ...data } = body;
+    const { methods, profileId, stateId, ...data } = body;
     const user = await this.prisma.user.findFirst({
       where: {
         id,
@@ -52,7 +52,7 @@ export class UpdateUserService {
       const userMethod = this.prisma.userMethod;
       const findUserMethods = await userMethod.findMany({
         where: {
-          userId: id,
+          studentId: id,
           deletedAt: {
             not: true,
           },
@@ -97,7 +97,7 @@ export class UpdateUserService {
           await userMethod.createMany({
             data: {
               methodId,
-              userId: id,
+              studentId: id,
               main: findCurrent.main,
               lesson: findCurrent.lesson,
             },
@@ -110,6 +110,12 @@ export class UpdateUserService {
       where: { id },
       data: {
         ...data,
+        profile: {
+          connect: { id: profileId },
+        },
+        state: {
+          connect: { id: stateId },
+        },
         email,
       },
       select: { ...DefaultDto.userSchema },

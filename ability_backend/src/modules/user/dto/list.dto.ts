@@ -1,7 +1,5 @@
-import { Role } from '@prisma/client';
 import {
-  Matches,
-  IsEnum,
+  IsEmpty,
   IsEmail,
   IsIn,
   IsInt,
@@ -34,15 +32,9 @@ export class Query {
   @IsOptional()
   tel?: string;
 
-  @IsOptional()
-  @IsEnum(Role)
-  @Matches(
-    `^${Object.values(Role)
-      .filter((v) => typeof v !== 'number')
-      .join('|')}$`,
-    'i',
-  )
-  role?: Role;
+  @IsString()
+  @IsEmpty()
+  profileId?: string;
 
   @IsString()
   @IsOptional()

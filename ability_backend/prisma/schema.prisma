@@ -15,9 +15,9 @@ model User {
   hash                  String
   urlImage              String?         @map("url_image") @db.VarChar(255)
   tel                   String?
-  state                 State           @relation(fields: [stateId], references: [id])
+  state                 State?           @relation(fields: [stateId], references: [id])
   stateId               String          @default(uuid())
-  profile               Profile         @relation(fields: [profileId], references: [id])
+  profile               Profile?         @relation(fields: [profileId], references: [id])
   profileId             String          @default(uuid())
   city                  String?         @db.VarChar(255)
   district              String?         @db.VarChar(255)

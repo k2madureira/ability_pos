@@ -57,7 +57,7 @@ export class RolesGuard implements CanActivate {
         if (
           PERMISSIONS[`${selectedMethod}`][
             `${user.role}`
-          ].includes(findUser[0].role)
+          ].includes(findUser[0].email)
         ) {
           return true;
         } else {
