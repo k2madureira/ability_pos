@@ -1,13 +1,15 @@
 # compiled output
 /dist
-/node_modules
+/ability-front/node_modules
+/ability-backend/node_modules
+/ability-backend/dist
 #env
 .env
 .env.test
 # Logs
 logs
 *.log
-npm-debug.log*
+npm-debug.log* 
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -38,34 +40,34 @@ lerna-debug.log*
 
 
 # dependencies
-/.pnp
-.pnp.js
+/ability-front/.pnp
+/ability-front/.pnp.js
 
 # testing
-/coverage
+/ability-front/coverage
 
 # next.js
-/.next/
-/out/
+/ability-front/.next/
+/ability-front/out/
 
 # production
-/build
+/ability-front/build
 
 # misc
 .DS_Store
-*.pem
+/ability-front/*.pem
 
 # debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+/ability-front/npm-debug.log*
+/ability-front/yarn-debug.log*
+/ability-front/yarn-error.log*
 
 # local env files
-.env*.local
+/ability-front/.env*.local
 
 # vercel
-.vercel
+/ability-front/.vercel
 
 # typescript
-*.tsbuildinfo
-next-env.d.ts
+/ability-front/*.tsbuildinfo
+/ability-front/next-env.d.ts

@@ -2,13 +2,11 @@ import {
   ArrayMinSize,
   IsArray,
   IsEmail,
-  IsEnum,
+  IsEmpty,
   IsOptional,
   IsString,
-  Matches,
   Validate,
 } from 'class-validator';
-import { Role } from '@prisma/client';
 import { ONE_MAIN } from '@shared/helper/config/messages';
 import { Methods, manyMain } from './default.dto';
 
@@ -33,15 +31,13 @@ export class Body {
   @IsOptional()
   tel?: string;
 
-  @IsOptional()
-  @IsEnum(Role)
-  @Matches(
-    `^${Object.values(Role)
-      .filter((v) => typeof v !== 'number')
-      .join('|')}$`,
-    'i',
-  )
-  role?: Role;
+  @IsString()
+  @IsEmpty()
+  profileId?: string;
+
+  @IsString()
+  @IsEmpty()
+  stateId?: string;
 
   @IsString()
   @IsOptional()

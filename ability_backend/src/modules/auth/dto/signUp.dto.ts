@@ -20,4 +20,8 @@ export class Request {
   @IsString()
   @IsNotEmpty()
   firstName: string;
+
+  @ApiProperty()
+  @IsString()
+  stateId: string;
 }

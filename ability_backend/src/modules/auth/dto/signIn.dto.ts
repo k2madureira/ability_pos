@@ -21,7 +21,7 @@ class AccessUser {
 
   @ApiProperty()
   @IsString()
-  role: string;
+  profileId: string;
 }
 
 export class Request {

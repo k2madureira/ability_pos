@@ -69,7 +69,7 @@ export class UserSchema {
 
   @ApiProperty()
   @IsString()
-  role: string;
+  profileId: string;
 
   @ApiProperty()
   @IsString()
@@ -100,7 +100,7 @@ export const userSchema = {
   hash: false,
   urlImage: true,
   tel: true,
-  role: true,
+  profileId: true,
   state: true,
   city: true,
   district: true,
