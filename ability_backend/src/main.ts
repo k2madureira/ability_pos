@@ -10,6 +10,7 @@ import { AppModule } from './app.module';
 const config = new ConfigService();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
 
   const configDoc = new DocumentBuilder()
     .setTitle(config.get('API_TITLE'))
