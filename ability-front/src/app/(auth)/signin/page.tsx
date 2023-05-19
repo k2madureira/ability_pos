@@ -1,5 +1,6 @@
-import React from 'react';
-
+'use client';
+import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import {
 	Container,
 	Content,
@@ -9,9 +10,17 @@ import {
 	WomanImage,
 } from './styles';
 import Link from 'next/link';
+import { AuthContext } from '@/contexts/AuthContext';
 
 export interface ISignInProps {}
-const SignIn: React.FC<ISignInProps> = (props) => {
+const SignIn: React.FC<ISignInProps> = () => {
+	const { register, handleSubmit } = useForm();
+	const { signIn } = useContext(AuthContext);
+
+	async function handleSignIn(data: any) {
+		await signIn(data);
+	}
+
 	return (
 		<Container>
 			<SideBar>
@@ -53,14 +62,20 @@ const SignIn: React.FC<ISignInProps> = (props) => {
 						<p>
 							Don&apos;t have a account? <Link href="/signup">Register</Link>
 						</p>
-						<form action="">
+						<form onSubmit={handleSubmit(handleSignIn)}>
 							<Input>
-								<input id="signEmail" name="email" required />
+								<input
+									{...register('email')}
+									id="signEmail"
+									name="email"
+									required
+								/>
 								<label htmlFor="signEmail">E-mail</label>
 							</Input>
 
 							<Input>
 								<input
+									{...register('password')}
 									type="password"
 									id="signPassword"
 									name="password"
