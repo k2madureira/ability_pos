@@ -1,15 +1,19 @@
-'use client';
-import styled from 'styled-components';
-import { breakpoint } from 'styled-components-breakpoint';
-import Image from 'next/image';
+"use client";
+import styled from "styled-components";
+import { breakpoint } from "styled-components-breakpoint";
 
 export const Container = styled.div`
-	display: grid;
-	grid-template-columns: 1fr;
-	width: 100vw;
-	height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
 
-	${breakpoint('desktop')`
-    grid-template-columns: 1fr 2fr;
+  main {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    text-align: center;
+  }
+  ${breakpoint("desktop")`
+    
   `}
 `;

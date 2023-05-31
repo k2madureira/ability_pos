@@ -16,6 +16,7 @@
   --gray-900: #111827;
   --gray-950: #060606;
 
+  --purple-090: #DFC1DF;
   --purple-100: #f3e8ff;
   --purple-500: #a855f7;
   --purple-700: #7e22ce;
@@ -23,11 +24,13 @@
   --purple-800: #4e119c;
   --purple-900: #581c87;
   --purple-950: #501359;
+  
 
   --fuchsia-600: #c026d3;
   --fuchsia-700: #a21caf;
   --fchisia-800: #8d178f;
   --fuchsia-900: #701a75;
+  --fuchsia-930: #740183;
   --fuchsia-950: #4a044e;
 
   --pink-800: #a61260;
