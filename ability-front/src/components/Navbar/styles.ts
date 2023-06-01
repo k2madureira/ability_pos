@@ -1,66 +1,71 @@
 import styled from "styled-components";
-import { breakpoint } from "styled-components-breakpoint";
 
 import Image from "next/image";
 
-export const LogoImage = styled(Image)`
-  max-width: 100%;
-  height: auto;
-  background-size: cover;
-`;
-
-export const IconImage = styled(Image)`
+export const Icon = styled(Image)`
   max-width: 100%;
   height: auto;
   background-size: cover;
 `;
 
 export const MENU_DESKTOP = "15vw";
+export const MENU_MOBILE = "15vw";
 
 export const Nav = styled.div`
-  grid-template-rows: ${MENU_DESKTOP};
-  grid-template-areas: "h";
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
   background: var(--purple-950);
+  width: ${MENU_MOBILE};
   height: 100vh;
-  width: ${MENU_DESKTOP};
-  top: 0;
-  left: 0;
-  z-index: 5;
   outline: none;
+  position: fixed;
+  z-index: 5;
 
   header {
-    padding-top: 5%;
-    grid-area: h;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50%;
 
     .ImgLogo {
       position: relative !important;
-      max-width: 25%;
+      max-width: 70%;
       max-height: 100%;
       height: auto;
     }
   }
 
   aside {
+    flex-grow: 2;
+    align-self: center;
+    padding: 1rem;
+    height: 20vh;
+
     ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 20vh;
       list-style: none;
-      padding: 0.5rem 0;
-      margin: 0;
+      margin-top: 5vh;
 
       li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
-        height: 10%;
-        padding: 0.5rem 1rem 0.5rem 2rem;
-        margin: 1rem;
         font-size: 1rem;
         color: var(--purple-090);
-        background-repeat: no-repeat;
-        background-position: left 1rem center;
-        transition: all 0.15s linear;
         cursor: pointer;
+        margin-top: 4rem;
+
+        span {
+          display: none;
+        }
 
         .Icon {
-          height: auto;
-          margin-right: 1rem;
           filter: invert(99%) sepia(2%) saturate(3640%) hue-rotate(114deg)
             brightness(80%) contrast(97%);
         }
@@ -68,7 +73,7 @@ export const Nav = styled.div`
           font-weight: 700;
 
           .Icon {
-            width: 11%;
+            width: 5vw;
             filter: invert(99%) sepia(2%) saturate(5000%) hue-rotate(114deg)
               brightness(90%) contrast(87%);
           }
@@ -80,41 +85,114 @@ export const Nav = styled.div`
     }
   }
 
-  ${breakpoint("desktop")`
-	    display: grid;
-      max-width: 34vw;
-      grid-template-columns: 1fr;
-      grid-template-areas:
-      'h'
-      'm'
-      'f';
-      grid-template-rows: 10vh 40vh 50vh;
-      height: 100vh;
+  footer {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
 
-      header  {
-				padding-top: 20%;
-        width: 100%;
-        height: 100%;
-        display:flex;
-        display: -webkit-flex; 
-        justify-content: center;
-        align-items: center;
-				
-				.ImgLogo {
-					position: relative !important;
-					width: 80%;
-					max-height: 100%;
-					height: auto;
-				}
+    .colcheia-icon {
+      position: relative !important;
+      max-width: 4vw;
+      max-height: 100%;
+      height: auto;
+    }
+  }
 
+  @media (min-width: 740px) {
+    header {
+      .ImgLogo {
+        max-width: 50%;
       }
+    }
+    aside {
+      ul {
+        li {
+          div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            span {
+              display: initial;
+              padding-top: 0.5rem;
+            }
 
-      aside {
-        grid-area: m;
-        align-self: center;
-        margin-top: 20%;
-        padding: 1rem;
+            &:hover {
+              .Icon {
+                width: 3vw;
+              }
+            }
+          }
+        }
       }
-  
-  `}
+    }
+  }
+
+  @media (min-width: 1024px) {
+    align-items: center;
+    padding-top: 0%;
+
+    header {
+      flex-grow: 1;
+      padding-top: 0%;
+
+      .ImgLogo {
+        max-width: 60%;
+      }
+    }
+    aside {
+      width: ${MENU_DESKTOP};
+      max-width: 100vw;
+      margin-top: 1vh;
+      padding: 0.2rem;
+
+      ul {
+        margin-top: 0vh;
+        height: 25vh;
+        li {
+          margin-top: 1rem;
+          max-width: 100vw;
+          div {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            width: 80%;
+
+            .li-icon {
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-start;
+              align-items: center;
+              width: 20%;
+              margin-left: 5%;
+            }
+
+            .li-span {
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-start;
+              align-items: center;
+              padding-top: 0.5rem;
+              padding-left: 5%;
+              width: 60%;
+            }
+
+            &:hover {
+              .Icon {
+                width: 2vw;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    footer {
+      .colcheia-icon {
+        max-width: 30%;
+      }
+    }
+  }
 `;

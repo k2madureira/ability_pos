@@ -1,12 +1,14 @@
+'use client';
 import * as S from "./styles";
+
 
 export function NavBar(){
   return (
     <>
-      <S.Nav>
+      <S.Nav tabIndex={0}>
         <header>
-        <div className="smartphone-menu"></div>
-          <S.LogoImage
+          <S.Icon
+            key={'ability-nav-logo'}
             className="ImgLogo"
             src="/images/sign-logo.png"
             width={99}
@@ -22,25 +24,38 @@ export function NavBar(){
                 return (
                   <li key={`li-${index}`}>
                     
-                    <span>
-                      <S.IconImage 
-                      key={`icon-${index}`}
-                      className="Icon"
-                      src={`/images/icons/${item.toLowerCase()}/${item.toLowerCase()}.svg`}
-                      width={19}
-                      height={15}
-                      alt={`icon-${item}`}
-                      />
-                      <i className={`${item}Icon`}/>
-                      {item}
-                      </span>
+                    <div>
+                      <div className="li-icon">
+                        <S.Icon 
+                        key={`icon-${index}`}
+                        className="Icon"
+                        src={`/images/icons/${item.toLowerCase()}/${item.toLowerCase()}.svg`}
+                        width={19}
+                        height={15}
+                        alt={`icon-${item}`}
+                        />
+                      </div>
+                      <div className="li-span">
+                        <span>{item}</span>
+                      </div>
+                    
+                    </div>
                   </li>
                 );
               })
             }
           </ul>
         </aside>
-       <footer></footer>
+       <footer>
+        <S.Icon
+            key={'ability-nav-colcheia'}
+            className="colcheia-icon"
+            src="/images/icons/music/colcheia.svg"
+            width={99}
+            height={56}
+            alt="Logo"
+          />
+       </footer>
         
       </S.Nav>
     </>
