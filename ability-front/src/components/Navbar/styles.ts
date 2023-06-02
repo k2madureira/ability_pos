@@ -51,15 +51,17 @@ export const Nav = styled.div`
       list-style: none;
       margin-top: 5vh;
 
+      .li-link {
+        text-decoration: none;
+        color: var(--purple-090);
+      }
       li {
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-top: 4rem;
         width: 100%;
         font-size: 1rem;
-        color: var(--purple-090);
-        cursor: pointer;
-        margin-top: 4rem;
 
         span {
           display: none;
@@ -108,7 +110,7 @@ export const Nav = styled.div`
     aside {
       ul {
         li {
-          div {
+          .li-link {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -153,7 +155,7 @@ export const Nav = styled.div`
         li {
           margin-top: 1rem;
           max-width: 100vw;
-          div {
+          .li-link {
             display: flex;
             flex-direction: row;
             justify-content: flex-start;

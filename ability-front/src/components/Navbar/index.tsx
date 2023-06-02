@@ -1,4 +1,5 @@
 'use client';
+import Link from "next/link";
 import * as S from "./styles";
 
 
@@ -21,15 +22,16 @@ export function NavBar(){
             {
               ['Home','Students','Methods','Instruments']
               .map((item,index) => {
+                const page =item.toLowerCase(); 
                 return (
                   <li key={`li-${index}`}>
                     
-                    <div>
-                      <div className="li-icon">
+                    <Link className='li-link' href={`/dashboard/${item === "Home" ? "" : page}`}>
+                    <div className="li-icon">
                         <S.Icon 
                         key={`icon-${index}`}
                         className="Icon"
-                        src={`/images/icons/${item.toLowerCase()}/${item.toLowerCase()}.svg`}
+                        src={`/images/icons/${page}/${page}.svg`}
                         width={19}
                         height={15}
                         alt={`icon-${item}`}
@@ -38,8 +40,8 @@ export function NavBar(){
                       <div className="li-span">
                         <span>{item}</span>
                       </div>
+                    </Link>
                     
-                    </div>
                   </li>
                 );
               })
