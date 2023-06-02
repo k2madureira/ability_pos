@@ -30,19 +30,13 @@ export const Content = styled.div`
 
   @media (min-width: 1024px) {
     grid-template:
-      "sidenav nav nav" 10vh
+      "sidenav nav nav" 15vh
       "sidenav content notification" 76vh
-      "sidenav footer footer" 10vh
+      "sidenav footer footer" 5vh
       / 15vw 3fr 1fr;
 
     .grid-notification-area {
       grid-area: notification;
     }
   }
-`;
-
-export const Nav = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 `;

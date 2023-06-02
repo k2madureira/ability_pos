@@ -3,18 +3,18 @@ import Link from "next/link";
 import * as S from "./styles";
 
 
-export function NavBar(){
+export function SideBar(){
   return (
     <>
-      <S.Nav tabIndex={0}>
+      <S.Side tabIndex={0}>
         <header>
           <S.Icon
-            key={'ability-nav-logo'}
+            key={'ability-sidebar-logo'}
             className="ImgLogo"
             src="/images/sign-logo.png"
             width={99}
             height={56}
-            alt="Logo"
+            alt="ability logo"
           />
         </header>
         <aside>
@@ -34,7 +34,7 @@ export function NavBar(){
                         src={`/images/icons/${page}/${page}.svg`}
                         width={19}
                         height={15}
-                        alt={`icon-${item}`}
+                        alt={`${item} icon`}
                         />
                       </div>
                       <div className="li-span">
@@ -50,16 +50,16 @@ export function NavBar(){
         </aside>
        <footer>
         <S.Icon
-            key={'ability-nav-colcheia'}
+            key={'ability-sidebar-colcheia'}
             className="colcheia-icon"
             src="/images/icons/music/colcheia.svg"
             width={99}
             height={56}
-            alt="Logo"
+            alt="colcheia icon"
           />
        </footer>
         
-      </S.Nav>
+      </S.Side>
     </>
   );
 }

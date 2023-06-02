@@ -1,6 +1,6 @@
 import '../../styles/global.css';
 import * as DS from './dashboardStyle';
-import { NavBar } from '@/components/Navbar';
+import { SideBar } from '@/components/SideBar';
 
 export const metadata = {
 	title: 'Ability Dashboard',
@@ -14,7 +14,7 @@ export default function DashboardLayout({
 }) {
 	return (
 		<DS.Container>
-			<NavBar />
+			<SideBar />
 			<DS.Content>
 				{children}	
 			</DS.Content>

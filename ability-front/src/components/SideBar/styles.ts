@@ -11,7 +11,7 @@ export const Icon = styled(Image)`
 export const MENU_DESKTOP = "15vw";
 export const MENU_MOBILE = "15vw";
 
-export const Nav = styled.div`
+export const Side = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -183,7 +183,7 @@ export const Nav = styled.div`
 
             &:hover {
               .Icon {
-                width: 2vw;
+                width: 50%;
               }
             }
           }

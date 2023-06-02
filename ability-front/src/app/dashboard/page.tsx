@@ -1,19 +1,15 @@
 'use client';
 import Link from 'next/link';
+import { NavBar } from '@/components/NavBar';
 import * as S from './styles';
 
 export default function Dashboard() {
 	return (
 		<>
-		<div className='grid-nav-area'>
-			<S.Nav>
-				<h1>Welcome, <span>User</span></h1>
-				<div>Menu</div>
-			</S.Nav>
-		</div>
+		<NavBar isHome txt={'User L'}/>
 		<div className='grid-content-area'>
 			
-			<h1>Home</h1>
+			<h1>General Information</h1>
 			<div>
 				<Link href="/signin">signin</Link>
 			</div>
