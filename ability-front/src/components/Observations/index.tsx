@@ -1,6 +1,7 @@
 'use client';
 import {format} from 'date-fns';
 import * as S from "./styles";
+import { useEffect, useState } from 'react';
 
 interface IProps {
   user: string;
@@ -8,8 +9,19 @@ interface IProps {
 
 export function Observations({ user }:IProps){
   const date = format(new Date(),'MM-dd-yyyy')
+
+  const [matches, setMatches] = useState(
+    window.matchMedia("(min-width: 740px)").matches
+  )
+
+  useEffect(() => {
+    window
+    .matchMedia("(min-width: 740px)")
+    .addEventListener('change', e => setMatches( e.matches ));
+  }, []);
+  
   return (
-    <div className="grid-content-area">
+    <div className="grid-observations-area">
       <S.Observations tabIndex={0}>
           <h3>Observations</h3>
             <ul className="observations">

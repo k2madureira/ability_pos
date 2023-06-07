@@ -8,6 +8,9 @@ export const Icon = styled(Image)`
   background-size: cover;
 `;
 
+export const CONTENT_DESKTOP = "2fr";
+export const CONTENT_MOBILE = "82vw";
+
 export const Nav = styled.div`
   display: flex;
   justify-content: space-between;
@@ -29,32 +32,32 @@ export const Nav = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  padding: 1rem;
-  max-width: 100%;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  max-width: ${CONTENT_MOBILE};
   max-height: auto;
+
   h1 {
-    flex-grow: 1;
+    height: 5vh;
     font-size: 1.5rem;
     font-weight: 400;
   }
 
   .total-numbers {
-    flex-grow: 2;
-
+    height: 10vh;
+    margin-top: 1vh;
     ul {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-around;
       list-style: none;
-      //margin-top: -20vh;
       background-color: var(--gray-050);
 
       li {
         display: flex;
         flex-direction: row;
-        padding: 0.5rem;
+
         width: 50%;
         p {
           padding: 0rem 0.5rem 0rem 0.3rem;
@@ -63,6 +66,23 @@ export const Content = styled.div`
           font-weight: 700;
         }
       }
+    }
+  }
+
+  @media (min-width: 740px) {
+    width: ${CONTENT_DESKTOP};
+    max-width: ${CONTENT_DESKTOP};
+
+    h1 {
+      margin-top: 1vh;
+      height: 4vh;
+    }
+
+    .total-numbers {
+      margin-top: 1vh;
+      width: ${CONTENT_DESKTOP};
+      height: 15vh;
+      font-size: 0.9rem;
     }
   }
 `;

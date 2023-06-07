@@ -8,14 +8,23 @@ export const Icon = styled(Image)`
   background-size: cover;
 `;
 
-export const CHART_DESKTOP = "75vw";
-export const CHART_MOBILE = "73VW";
+export const CHART_DESKTOP = "80vw";
+export const CHART_MOBILE = "70vw";
 
 export const Chart = styled.div`
-  flex-grow: 2;
   width: ${CHART_MOBILE};
-  height: auto;
-  //margin-top: -58vh;
+  height: 20vh;
   background-color: var(--gray-050);
   border: 1px solid var(--gray-300);
+
+  @media (min-width: 740px) {
+    width: ${CHART_DESKTOP};
+    height: 27vh;
+    margin-top: 1vh;
+
+    .chart-content {
+      width: 80%;
+      margin-left: 10%;
+    }
+  }
 `;
