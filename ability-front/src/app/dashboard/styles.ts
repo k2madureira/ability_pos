@@ -8,7 +8,8 @@ export const Icon = styled(Image)`
   background-size: cover;
 `;
 
-export const CONTENT_DESKTOP = "2fr";
+export const CONTENT_DESKTOP = "52vw";
+export const CONTENT_TABLET = "2fr";
 export const CONTENT_MOBILE = "82vw";
 
 export const Nav = styled.div`
@@ -70,6 +71,23 @@ export const Content = styled.div`
   }
 
   @media (min-width: 740px) {
+    width: ${CONTENT_TABLET};
+    max-width: ${CONTENT_TABLET};
+
+    h1 {
+      margin-top: 1vh;
+      height: 4vh;
+    }
+
+    .total-numbers {
+      margin-top: 1vh;
+      width: ${CONTENT_TABLET};
+      height: 15vh;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
     width: ${CONTENT_DESKTOP};
     max-width: ${CONTENT_DESKTOP};
 
@@ -79,10 +97,15 @@ export const Content = styled.div`
     }
 
     .total-numbers {
-      margin-top: 1vh;
+      margin-top: 2vh;
       width: ${CONTENT_DESKTOP};
       height: 15vh;
       font-size: 0.9rem;
+
+      ul {
+        flex-direction: column;
+        row-gap: 1vh;
+      }
     }
   }
 `;

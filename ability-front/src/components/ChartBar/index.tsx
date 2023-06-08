@@ -21,11 +21,22 @@ export function ChartBar({ data }:IProps){
           {
             data,
             label:"Total",
-            borderColor: "rgb(95, 18, 184)",
-            backgroundColor: "rgb(95, 18, 184,0.5)",
+            borderColor: [
+              'rgba(95, 18, 184,0.5)',
+              'rgba(126, 34, 206, 0.5)',
+              'rgba(112, 26, 117,0.5)',
+              'rgba(116, 1, 131,0.5)'
+            ],
+            backgroundColor: [
+              'rgba(95, 18, 184,0.5)',
+              'rgba(126, 34, 206, 0.5)',
+              'rgba(112, 26, 117,0.5)',
+              'rgba(116, 1, 131,0.5)'
+            ],
             borderWidth: 1,
             borderRadius: 5,
             maxBarThickness: 30,
+          
           }
         ]
       },  

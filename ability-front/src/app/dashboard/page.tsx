@@ -24,9 +24,7 @@ export default function Dashboard() {
 
 				<S.Content className='grid-content-area'>
 				<h1>General Information</h1>
-					{/* <div>
-						<Link href="/signin">signin</Link>
-					</div> */}
+					
 					<div className='total-numbers'>
 						<ul>
 							<li>

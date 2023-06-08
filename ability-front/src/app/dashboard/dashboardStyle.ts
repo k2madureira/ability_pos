@@ -50,12 +50,13 @@ export const Content = styled.div`
   @media (min-width: 1024px) {
     grid-template:
       "sidenav nav nav" 10vh
-      "sidenav content observations" 84vh
+      "sidenav content observations" 45vh
+      "sidenav theory observations" 37vh
       "sidenav footer footer" 4vh
-      / 15vw 3fr 1fr;
+      / 15vw 3fr 1.5fr;
+  }
 
-    .grid-observations-area {
-      grid-area: observations;
-    }
+  .grid-theory-area {
+    grid-area: theory;
   }
 `;
