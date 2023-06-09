@@ -103,6 +103,7 @@ export const Side = styled.div`
 
   @media (min-width: 740px) {
     header {
+      padding-top: 40%;
       .ImgLogo {
         max-width: 50%;
       }

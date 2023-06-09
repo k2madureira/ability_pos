@@ -9,14 +9,16 @@ export const Icon = styled(Image)`
 `;
 
 export const NAV_DESKTOP = "15vw";
-export const NAV_MOBILE = "2fr";
+export const NAV_MOBILE = "75vw";
 
 export const Nav = styled.div`
   display: flex;
+  position: fixed;
   justify-content: space-between;
   align-items: center;
-  width: ${NAV_MOBILE};
+  width: var(--grd-dash-content-width);
   height: 10vh;
+  background-color: var(--white);
 
   h2 {
     padding: 1rem;
@@ -83,9 +85,9 @@ export const Nav = styled.div`
   }
 
   @media (min-width: 740px) {
-    padding-top: 5rem;
+    padding-top: 1rem;
     h2 {
-      font-size: x-large;
+      font-size: 1.4rem;
     }
     .select-nav {
       margin-right: 3rem;
