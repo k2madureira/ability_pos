@@ -29,20 +29,23 @@ export class JwtStrategy extends PassportStrategy(
   }
 
   async validate(payload: IPayload) {
-    const users = await this.prisma.user.findMany({
+    const user = await this.prisma.user.findFirst({
       where: {
         email: payload.email,
         deletedAt: {
           not: true,
         },
       },
+      include: {
+        profile: {},
+      },
     });
-    if (users.length === 0) {
+    if (!user) {
       throw new UnauthorizedException(
         'invalid-bearer-token',
       );
     }
-    const user = users[0];
+
     delete user.hash;
 
     return user;

@@ -1,5 +1,5 @@
 import { JwtGuard, RolesGuard } from '@modules/auth/guard';
-import { DefaultDto } from '@modules/instrument/dto';
+import { DefaultDto } from '@modules/method/dto';
 import {
   Controller,
   Get,

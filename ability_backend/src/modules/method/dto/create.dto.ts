@@ -1,6 +1,5 @@
 import {
   IsBoolean,
-  IsEmpty,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -20,7 +19,6 @@ export class Body {
   urlImage?: string;
 
   @IsString()
-  @IsEmpty()
   @IsOptional()
   instrumentId?: string | null;
 

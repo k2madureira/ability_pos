@@ -27,6 +27,9 @@ export class SignInService {
           not: true,
         },
       },
+      include: {
+        profile: true,
+      },
     });
 
     if (!user)
@@ -46,7 +49,7 @@ export class SignInService {
         id: user.id,
         email: user.email,
         name: `${user.firstName} ${user.secondName || ''}`,
-        profileId: user.profileId,
+        profile: user.profile,
       },
     };
   }

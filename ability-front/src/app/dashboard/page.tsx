@@ -9,84 +9,81 @@ import * as S from './styles';
 import { useEffect, useState } from 'react';
 
 export default function Dashboard() {
-	const [matches, setMatches] = useState(
-    window.matchMedia("(min-width: 740px)").matches
-  )
+	useEffect(() => {
+		window
+			.matchMedia('(min-width: 740px)')
+			.addEventListener('change', (e) => setMatches(e.matches));
+	}, []);
 
-  useEffect(() => {
-    window
-    .matchMedia("(min-width: 740px)")
-    .addEventListener('change', e => setMatches( e.matches ));
-  }, []);
+	const [matches, setMatches] = useState(
+		window.matchMedia('(min-width: 740px)').matches
+	);
+
 	return (
 		<>
-			<NavBar isHome txt={'User L'}/>
+			<NavBar isHome txt={'User L'} />
 
-				<S.Content className='grid-content-area'>
+			<S.Content className="grid-content-area">
 				<h1>General Information</h1>
-					
-					<div className='total-numbers'>
-						<ul>
-							<li>
-							<S.Icon 
+
+				<div className="total-numbers">
+					<ul>
+						<li>
+							<S.Icon
 								key={`icon-1`}
 								className="Icon"
 								src={`/images/icons/general/green-ellipse.svg`}
 								width={9}
 								height={9}
 								alt={`green cicle`}
-								/>
-								<p>Groups:</p>
-								<span>2</span>
-							</li>
-							<li>
-								<S.Icon 
+							/>
+							<p>Groups:</p>
+							<span>2</span>
+						</li>
+						<li>
+							<S.Icon
 								key={`icon-1`}
 								className="Icon"
 								src={`/images/icons/general/green-ellipse.svg`}
 								width={9}
 								height={9}
 								alt={`green cicle`}
-								/>
-								<p>Students:</p>
-								<span>2</span>
-							</li>
-							<li>
-							<S.Icon 
+							/>
+							<p>Students:</p>
+							<span>2</span>
+						</li>
+						<li>
+							<S.Icon
 								key={`icon-1`}
 								className="Icon"
 								src={`/images/icons/general/green-ellipse.svg`}
 								width={9}
 								height={9}
 								alt={`green cicle`}
-								/>
-								<p>Instruments:</p>
-								<span>2</span>
-							</li>
-							<li>
-							<S.Icon 
+							/>
+							<p>Instruments:</p>
+							<span>2</span>
+						</li>
+						<li>
+							<S.Icon
 								key={`icon-1`}
 								className="Icon"
 								src={`/images/icons/general/green-ellipse.svg`}
 								width={9}
 								height={9}
 								alt={`green cicle`}
-								/>
-								<p>Naipes:</p>
-								<span>2</span>
-							</li>
-						</ul>
-					</div>
-					<ChartBar data={[2,4,5,1]}/>
-				</S.Content>
-				{
-					matches ? <Theory instrument={'violin'}/>: <span />
-					
-				}
-				<Observations user={'Instructor'}/>
-				
+							/>
+							<p>Naipes:</p>
+							<span>2</span>
+						</li>
+					</ul>
+				</div>
+				<ChartBar data={[2, 4, 5, 1]} />
+			</S.Content>
+			{matches ? <Theory instrument={'violin'} /> : <span />}
+			<Observations user={'Instructor'} />
+
 			<Footer />
 		</>
-			
 	);
 }
