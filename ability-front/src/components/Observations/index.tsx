@@ -1,16 +1,31 @@
 'use client';
 import {format} from 'date-fns';
 import * as S from "./styles";
+import { useEffect, useState } from 'react';
 
 interface IProps {
   user: string;
+  instrument?: string
 }
 
-export function Observations({ user }:IProps){
+export function Observations({ user, instrument='violin' }:IProps){
   const date = format(new Date(),'MM-dd-yyyy')
+
+  const [matches, setMatches] = useState(
+    window.matchMedia("(min-width: 1024px)").matches
+  )
+
+  useEffect(() => {
+    window
+    .matchMedia("(min-width: 1024px)")
+    .addEventListener('change', e => setMatches( e.matches ));
+  }, []);
+  
   return (
-    <div className="grid-content-area">
+    <div className="grid-observations-area">
       <S.Observations tabIndex={0}>
+        {matches? <span>{instrument}</span>: <p/>}
+          
           <h3>Observations</h3>
             <ul className="observations">
               

@@ -15,9 +15,9 @@ model User {
   hash                  String
   urlImage              String?         @map("url_image") @db.VarChar(255)
   tel                   String?
-  state                 State?           @relation(fields: [stateId], references: [id])
+  state                 State?          @relation(fields: [stateId], references: [id])
   stateId               String          @default(uuid())
-  profile               Profile?         @relation(fields: [profileId], references: [id])
+  profile               Profile?        @relation(fields: [profileId], references: [id])
   profileId             String          @default(uuid())
   city                  String?         @db.VarChar(255)
   district              String?         @db.VarChar(255)
@@ -25,8 +25,8 @@ model User {
   createdAt             DateTime        @default(now())
   updatedAt             DateTime        @updatedAt
   deletedAt             Boolean         @default(false)
-  UserMethod            UserMethod[]
-  UserGroup             UserGroup[]
+  userMethod            UserMethod[]
+  userGroup             UserGroup[]
   LessonHistory         LessonHistory[]
   studentObservation    Observation[]   @relation("studentObservation")
   instructorObservation Observation[]   @relation("instructorObservation")
@@ -41,7 +41,7 @@ model Profile {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt Boolean  @default(false)
-  User      User[]
+  users     User[]
 
   @@map("profiles")
 }
@@ -74,13 +74,13 @@ model UserGroup {
 }
 
 model Group {
-  id        String      @id @default(uuid())
-  name      String      @db.VarChar(100)
-  slug      String      @db.VarChar(100)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  deletedAt Boolean     @default(false)
-  UserGroup UserGroup[]
+  id         String      @id @default(uuid())
+  name       String      @db.VarChar(100)
+  slug       String      @db.VarChar(100)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  deletedAt  Boolean     @default(false)
+  groupUsers UserGroup[]
 
   @@map("groups")
 }
@@ -128,15 +128,18 @@ model LessonHistory {
 }
 
 model Observation {
-  id           String   @id @default(uuid())
-  student      User     @relation(name: "studentObservation", fields: [studentId], references: [id], onDelete: Cascade)
-  studentId    String   @default(uuid())
-  instructor   User     @relation(name: "instructorObservation", fields: [instructorId], references: [id], onDelete: Cascade)
-  instructorId String   @default(uuid())
-  observation  String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  deletedAt    Boolean  @default(false)
+  id           String        @id @default(uuid())
+  student      User          @relation(name: "studentObservation", fields: [studentId], references: [id], onDelete: Cascade)
+  studentId    String        @default(uuid())
+  instructor   User          @relation(name: "instructorObservation", fields: [instructorId], references: [id], onDelete: Cascade)
+  instructorId String        @default(uuid())
+  description  String        @db.Text()
+  replyFromId  String?
+  replyFrom    Observation?  @relation("ObservationReply", fields: [replyFromId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies      Observation[] @relation("ObservationReply")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  deletedAt    Boolean       @default(false)
 
   @@map("observations")
 }

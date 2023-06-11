@@ -14,7 +14,7 @@ export class GetCurrentService {
       },
       select: {
         ...DefaultDto.userSchema,
-        UserMethod: {
+        userGroup: {
           ...this.prisma.methodSelect(),
         },
       },

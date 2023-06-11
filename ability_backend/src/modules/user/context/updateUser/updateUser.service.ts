@@ -23,7 +23,7 @@ export class UpdateUserService {
     id: string,
     body: UpdateDto.Body,
   ): Promise<Partial<User>> {
-    const { methods, profileId, stateId, ...data } = body;
+    const { methods, ...data } = body;
     const user = await this.prisma.user.findFirst({
       where: {
         id,
@@ -35,18 +35,21 @@ export class UpdateUserService {
     if (!user) {
       throw new NotFoundException(NOT_FOUND('user'));
     }
-    const email = data.email.trim();
-    const conflict = await this.prisma.user.findFirst({
-      where: {
-        email,
-        id: {
-          not: id,
-        },
-      },
-    });
 
-    if (conflict)
-      throw new ConflictException(CONFLICT('email'));
+    if (data.email) {
+      const email = data.email.trim();
+      const conflict = await this.prisma.user.findFirst({
+        where: {
+          email,
+          id: {
+            not: id,
+          },
+        },
+      });
+
+      if (conflict)
+        throw new ConflictException(CONFLICT('email'));
+    }
 
     if (methods) {
       const userMethod = this.prisma.userMethod;
@@ -110,14 +113,7 @@ export class UpdateUserService {
       where: { id },
       data: {
         ...data,
-        profile: {
-          connect: { id: profileId },
-        },
-        state: {
-          connect: { id: stateId },
-        },
-        email,
-      },
+      } as Partial<User>,
       select: { ...DefaultDto.userSchema },
     });
   }

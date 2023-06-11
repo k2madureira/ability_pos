@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 :root {
+  /* Grid Dashboard */
+  --grd-dash-sidebar-width: 15vw;
+  --grd-dash-content-width: 82vw;
+
+  --grd-dash-nav-height: 10vh;
+  --grd-dash-content-height: 40vh;
+  --grd-dash-observations-height: 45vh;
+  --grd-dash-footer-height: 2vh;
+
+
+  /* Project Colors */
   --white: #fff;
   --black: #000;
 

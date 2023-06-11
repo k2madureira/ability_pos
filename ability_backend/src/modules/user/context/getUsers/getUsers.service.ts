@@ -26,7 +26,22 @@ export class GetUsersService {
       ...query,
       select: {
         ...DefaultDto.userSchema,
-        UserMethod: {
+        profile: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+          },
+        },
+        state: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+            postal: true,
+          },
+        },
+        userMethod: {
           ...this.prisma.methodSelect(),
         },
       },

@@ -24,7 +24,7 @@ export class GetUserByIdService {
       },
       select: {
         ...DefaultDto.userSchema,
-        UserMethod: {
+        userGroup: {
           ...selectAll,
         },
       },

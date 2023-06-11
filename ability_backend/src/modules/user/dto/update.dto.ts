@@ -2,7 +2,6 @@ import {
   ArrayMinSize,
   IsArray,
   IsEmail,
-  IsEmpty,
   IsOptional,
   IsString,
   Validate,
@@ -32,11 +31,11 @@ export class Body {
   tel?: string;
 
   @IsString()
-  @IsEmpty()
+  @IsOptional()
   profileId?: string;
 
   @IsString()
-  @IsEmpty()
+  @IsOptional()
   stateId?: string;
 
   @IsString()

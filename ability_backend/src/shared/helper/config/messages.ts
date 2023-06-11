@@ -6,6 +6,9 @@ export const LOGOUT_SUCCESSFUL = 'logout-successful';
 export const ACCESS_DENIED =
   'access-denied-for-this-procedure';
 
+export const NOT_ACCEPTABLE = (param: string): string =>
+  `${param}-have-active-relations`;
+
 export const NOT_FOUND = (param: string): string =>
   `${param}-not-found`;
 

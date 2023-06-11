@@ -34,6 +34,7 @@ export class Query {
 
   @IsString()
   @IsEmpty()
+  @IsOptional()
   profileId?: string;
 
   @IsString()

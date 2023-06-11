@@ -44,7 +44,7 @@ export class CreateUserService {
           connect: { id: stateId },
         },
         hash,
-        UserMethod: {
+        userMethod: {
           createMany: {
             data: methods || [],
           },

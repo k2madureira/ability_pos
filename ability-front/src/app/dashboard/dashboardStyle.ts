@@ -10,11 +10,13 @@ export const Container = styled.div`
 export const Content = styled.div`
   display: grid;
   grid-template:
-    "sidenav nav" 10vh
-    "sidenav content" 80vh
-    "sidenav footer" 5vh
-    / 15vw 2fr;
-  gap: 1rem;
+    "sidenav nav" var(--grd-dash-nav-height)
+    "sidenav content" var(--grd-dash-content-height)
+    "sidenav observations" var(--grd-dash-observations-height)
+    "sidenav footer" var(--grd-dash-footer-height)
+    / var(--grd-dash-sidebar-width) var(--grd-dash-content-width);
+  column-gap: 2vw;
+  row-gap: 1vh;
 
   .grid-nav-area {
     grid-area: nav;
@@ -24,19 +26,37 @@ export const Content = styled.div`
     grid-area: content;
   }
 
+  .grid-observations-area {
+    grid-area: observations;
+  }
+
   .grid-footer-area {
     grid-area: footer;
   }
 
+  @media (min-width: 740px) {
+    grid-template:
+      "sidenav nav nav" 10vh
+      "sidenav content content" 37vh
+      "sidenav observations theory" 45vh
+      "sidenav footer footer" 4vh
+      / 15vw 2fr 2fr;
+
+    .grid-theory-area {
+      grid-area: theory;
+    }
+  }
+
   @media (min-width: 1024px) {
     grid-template:
-      "sidenav nav nav" 15vh
-      "sidenav content notification" 76vh
-      "sidenav footer footer" 5vh
-      / 15vw 3fr 1fr;
+      "sidenav nav nav" 10vh
+      "sidenav content observations" 45vh
+      "sidenav theory observations" 37vh
+      "sidenav footer footer" 4vh
+      / 15vw 3fr 1.5fr;
+  }
 
-    .grid-notification-area {
-      grid-area: notification;
-    }
+  .grid-theory-area {
+    grid-area: theory;
   }
 `;

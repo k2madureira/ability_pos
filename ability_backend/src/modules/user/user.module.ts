@@ -12,6 +12,9 @@ import { DeleteUserByIdService } from './context/deleteUser/deleteUserById.servi
 import { GetCurrentUserController } from './context/getCurrentUser/getCurrentUser.controller';
 import { GetCurrentService } from './context/getCurrentUser/getCurrentUser.service';
 
+import { GetStudentsController } from './context/getStudents/getStudents.controller';
+import { GetStudentsService } from './context/getStudents/getStudents.service';
+
 @Module({
   controllers: [
     CreateUserController,
@@ -19,6 +22,7 @@ import { GetCurrentService } from './context/getCurrentUser/getCurrentUser.servi
     GetUserByIdController,
     GetCurrentUserController,
     GetUsersController,
+    GetStudentsController,
     DeleteUserByIdController,
   ],
   providers: [
@@ -27,6 +31,7 @@ import { GetCurrentService } from './context/getCurrentUser/getCurrentUser.servi
     GetUserByIdService,
     GetCurrentService,
     GetUsersService,
+    GetStudentsService,
     DeleteUserByIdService,
   ],
 })

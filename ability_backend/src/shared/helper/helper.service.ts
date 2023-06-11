@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { isBoolean } from 'class-validator';
 
 @Injectable()
 export class HelperService {
   queryBuild(params: any) {
-    let query: any = {
+    const query: any = {
       where: {
         deletedAt: {
           not: true,
@@ -12,14 +13,14 @@ export class HelperService {
     };
 
     if (params.sortField) {
-      query = {
+      Object.assign(query, {
         orderBy: [
           {
             [`${params.sortField}`]:
               params.sortOrder || 'asc',
           },
         ],
-      };
+      });
     }
 
     Object.entries(params).forEach(([key, value]) => {
@@ -31,13 +32,16 @@ export class HelperService {
           'sortOrder',
         ].includes(key)
       ) {
-        query.where = {
-          ...query.where,
-          [`${key}`]: {
-            contains: value,
-            mode: 'insensitive',
-          },
-        };
+        Object.assign(query.where, {
+          [`${key}`]: !isBoolean(value)
+            ? {
+                contains: value,
+                mode: 'insensitive',
+              }
+            : {
+                equals: value,
+              },
+        });
       }
     });
 

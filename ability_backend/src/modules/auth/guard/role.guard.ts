@@ -43,32 +43,49 @@ export class RolesGuard implements CanActivate {
       route.includes('users')
     ) {
       if (params.id && user.id !== params.id) {
-        const findUser = await this.prisma.user.findMany({
+        const findUser = await this.prisma.user.findFirst({
           where: {
             id: params.id,
             deletedAt: {
               not: true,
             },
           },
+          include: {
+            profile: {},
+          },
         });
-        if (findUser.length === 0) {
+        if (!findUser) {
           throw new NotFoundException(NOT_FOUND('user'));
         }
+
         if (
           PERMISSIONS[`${selectedMethod}`][
-            `${user.role}`
-          ].includes(findUser[0].email)
+            `${user.profile.name}`
+          ].includes(findUser.profile.name)
         ) {
           return true;
         } else {
           throw new UnauthorizedException(ACCESS_DENIED);
         }
       } else {
+        let typeProfile = 'STUDENT';
+        if (body.profileId) {
+          const findProfile =
+            await this.prisma.profile.findFirst({
+              where: {
+                id: body.profileId,
+              },
+            });
+
+          if (findProfile) {
+            typeProfile = findProfile.name;
+          }
+        }
+
         if (
-          body.role &&
           PERMISSIONS[`${selectedMethod}`][
-            `${user.role}`
-          ].includes(body.role)
+            `${user.profile.name}`
+          ].includes(typeProfile)
         ) {
           return true;
         } else {
@@ -78,7 +95,7 @@ export class RolesGuard implements CanActivate {
     } else if (
       METHODS.includes(method) &&
       ADMIN_ROUTES.includes(route.split('/')[1]) &&
-      !SUPER_ROLES.includes(user.role)
+      !SUPER_ROLES.includes(user.profile.name)
     ) {
       throw new UnauthorizedException(ACCESS_DENIED);
     }
