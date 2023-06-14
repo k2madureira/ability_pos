@@ -106,4 +106,5 @@ export const userSchema = {
   district: true,
   zipCode: true,
   createdAt: true,
+  profile: true,
 };

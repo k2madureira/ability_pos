@@ -8,15 +8,12 @@ export class GetCurrentService {
   constructor(private prisma: PrismaService) {}
 
   async execute(id: string): Promise<Partial<User>> {
-    return this.prisma.user.findUnique({
+    return this.prisma.user.findFirst({
       where: {
         id,
       },
       select: {
         ...DefaultDto.userSchema,
-        userGroup: {
-          ...this.prisma.methodSelect(),
-        },
       },
     });
   }

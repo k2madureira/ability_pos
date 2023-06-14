@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { format } from 'date-fns';
 import { PrismaService } from '@shared/prisma/prisma.service';
 import { HelperService } from '@shared/helper/helper.service';
@@ -44,7 +44,11 @@ export class GetObservationsService {
       },
     });
 
-    const dateStr = 'dd-mm-yyyy HH:mm';
+    if (!items.length) {
+      throw new HttpException('', 204);
+    }
+
+    const dateStr = 'dd-MM-yyyy HH:mm';
     const observations = items.map((observation) => ({
       ...observation,
       createdAt: format(observation.createdAt, dateStr),

@@ -9,7 +9,13 @@ type User = {
 	id: string;
 	email: string;
 	name: string;
-	profileId: string;
+	profile:{
+    id: string;
+    name: string;
+    slug: string;
+    createdAt: string;
+    updatedAt: string;
+  }
 };
 
 type SignInRequest = {
