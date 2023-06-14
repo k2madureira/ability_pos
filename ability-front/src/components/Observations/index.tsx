@@ -23,7 +23,7 @@ export function Observations(user: any){
         {isLoading && <p>Carregando</p>}
         {!isLoading && <>
 
-          {matches? <span>{user?.profile.name}</span>: <p/>}
+          {matches? <span>{user?.instrument.name}</span>: <p/>}
           
           <h3>Observations</h3>
             <ul className="observations">

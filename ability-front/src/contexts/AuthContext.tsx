@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useEffect, useState } from 'react';
-import { setCookie, parseCookies } from 'nookies';
+import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import { recoverUserInformation, signInRequest } from '@/services/auth';
 import { useRouter } from 'next/navigation';
 import { api } from '@/services/api';
@@ -10,6 +10,13 @@ type User = {
 	email: string;
 	name: string;
 	profile:{
+    id: string;
+    name: string;
+    slug: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+	instrument:{
     id: string;
     name: string;
     slug: string;
@@ -27,6 +34,7 @@ type AuthContextType = {
 	isAuthenticated: boolean;
 	user: User | null;
 	signIn: (data: SignInRequest) => Promise<void>;
+	signOut: () => Promise<void>;
 };
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -59,8 +67,12 @@ export function AuthProvider({ children }: any) {
 		router.push('/dashboard');
 	}
 
+	async function signOut() {
+		destroyCookie(undefined,'ability-token')
+	}
+
 	return (
-		<AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+		<AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
 			{children}
 		</AuthContext.Provider>
 	);

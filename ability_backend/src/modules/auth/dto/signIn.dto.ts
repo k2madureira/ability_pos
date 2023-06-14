@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Profile } from '@prisma/client';
+import { Profile, Instrument } from '@prisma/client';
 import { Type } from 'class-transformer';
 import {
   IsEmail,
@@ -23,6 +23,10 @@ class AccessUser {
   @ApiProperty()
   @IsString()
   profile: Profile;
+
+  @ApiProperty()
+  @IsString()
+  instrument: Instrument;
 }
 
 export class Request {

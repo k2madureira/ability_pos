@@ -29,6 +29,7 @@ export class SignInService {
       },
       include: {
         profile: true,
+        instrument: true,
       },
     });
 
@@ -50,6 +51,7 @@ export class SignInService {
         email: user.email,
         name: `${user.firstName} ${user.secondName || ''}`,
         profile: user.profile,
+        instrument: user.instrument,
       },
     };
   }

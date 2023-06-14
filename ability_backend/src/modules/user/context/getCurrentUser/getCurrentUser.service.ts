@@ -14,6 +14,7 @@ export class GetCurrentService {
       },
       select: {
         ...DefaultDto.userSchema,
+        instrument: true,
       },
     });
   }

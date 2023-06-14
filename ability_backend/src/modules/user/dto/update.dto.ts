@@ -36,6 +36,10 @@ export class Body {
 
   @IsString()
   @IsOptional()
+  instrumentId?: string;
+
+  @IsString()
+  @IsOptional()
   stateId?: string;
 
   @IsString()

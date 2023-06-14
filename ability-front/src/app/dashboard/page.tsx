@@ -1,28 +1,31 @@
 'use client';
-// import Link from 'next/link';
+import Link from 'next/link';
 import { NavBar } from '@/components/NavBar';
 import { ChartBar } from '@/components/ChartBar';
 import { Theory } from '@/components/Theory';
 import { Observations } from '@/components/Observations';
 import { Footer } from '@/components/Footer';
 import * as S from './styles';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useFetchUser } from '@/hooks/reactQuery/useIntegrationsApi';
 import { parseCookies } from 'nookies';
 import { redirect } from 'next/navigation';
+import { AuthContext } from '@/contexts/AuthContext';
 
 
 export default function Dashboard() {
 	const { data, isLoading } = useFetchUser();
+	const { signOut } = useContext(AuthContext);
 
 	const [matches, setMatches] = useState(
 		window.matchMedia('(min-width: 740px)').matches
 	);
 
+
 	useEffect(() => {
 		const { 'ability-token': token } = parseCookies();
 
-		console.log({ token })
+		
 		if (!token) {
 			redirect('/signin')
 		}
@@ -32,6 +35,10 @@ export default function Dashboard() {
 	}, []);
 
 
+	async function handleSignOut() {
+		await signOut();
+	}
+
 	return (
 		<>
 		{isLoading && <p>Carregando</p>}
@@ -39,7 +46,7 @@ export default function Dashboard() {
 				<NavBar isHome txt={data?.firstName as string} />
 
 				<S.Content className="grid-content-area">
-					<h1>General Information</h1>
+					<h1>General Information <Link href="/signin" onClick={() => handleSignOut()}>Logout</Link></h1>
 					<div className="total-numbers">
 						<ul>
 							<li>

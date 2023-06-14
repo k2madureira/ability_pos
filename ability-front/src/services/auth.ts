@@ -18,6 +18,13 @@ interface ISignIn {
         createdAt: string;
         updatedAt: string;
       };
+      instrument: {
+        id: string;
+        name: string;
+        slug: string;
+        createdAt: string;
+        updatedAt: string;
+      };
     };
   };
 }
@@ -35,16 +42,5 @@ export async function signInRequest({
 }
 
 export async function recoverUserInformation() {
-  return {
-    id: "ef0ff674-d65e-4b96-ac7b-0048bbcb61b7",
-    email: "lenilsonmadureira2@gmail.com",
-    name: "Lenilson Madureira ",
-    profile: {
-      id: "",
-      name: "",
-      slug: "",
-      createdAt: "",
-      updatedAt: "",
-    },
-  };
+  return (await api.get("/me")).data;
 }

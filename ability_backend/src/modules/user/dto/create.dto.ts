@@ -49,6 +49,11 @@ export class UserRequest {
 
   @ApiProperty()
   @IsString()
+  @IsOptional()
+  instrumentId?: string;
+
+  @ApiProperty()
+  @IsString()
   @IsNotEmpty()
   stateId: string;
 

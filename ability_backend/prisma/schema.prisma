@@ -19,6 +19,8 @@ model User {
   stateId               String          @default(uuid())
   profile               Profile?        @relation(fields: [profileId], references: [id])
   profileId             String          @default(uuid())
+  instrument            Instrument?     @relation(fields: [instrumentId], references: [id])
+  instrumentId          String?         @default(uuid())
   city                  String?         @db.VarChar(255)
   district              String?         @db.VarChar(255)
   zipCode               String?         @map("zip_code") @db.VarChar(255)
@@ -154,6 +156,7 @@ model Instrument {
   updatedAt DateTime @updatedAt
   deletedAt Boolean  @default(false)
   Method    Method[]
+  User      User[]
 
   @@map("instruments")
 }

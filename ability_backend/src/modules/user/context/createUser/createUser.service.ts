@@ -19,6 +19,7 @@ export class CreateUserService {
       password,
       methods,
       profileId,
+      instrumentId,
       stateId,
       ...data
     } = body;
@@ -37,6 +38,9 @@ export class CreateUserService {
     const user = await this.prisma.user.create({
       data: {
         ...data,
+        instrument: {
+          connect: { id: instrumentId },
+        },
         profile: {
           connect: { id: profileId },
         },

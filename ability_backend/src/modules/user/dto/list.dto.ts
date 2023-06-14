@@ -39,6 +39,10 @@ export class Query {
 
   @IsString()
   @IsOptional()
+  instrumentId?: string;
+
+  @IsString()
+  @IsOptional()
   state?: string;
 
   @IsString()
