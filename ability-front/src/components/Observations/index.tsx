@@ -1,7 +1,7 @@
 'use client';
 import * as S from "./styles";
 import { useEffect, useState } from 'react';
-import { useFetchObservation } from "@/hooks/reactQuery/useIntegrationsApi";
+import { useFetchObservation } from "@/hooks/reactQuery/observations/integrationApi";
 
 
 export function Observations(user: any){
@@ -20,7 +20,36 @@ export function Observations(user: any){
   return (
     <div className="grid-observations-area">
       <S.Observations tabIndex={0}>
-        {isLoading && <p>Carregando</p>}
+        {isLoading && <>
+        
+          {matches? <span></span>: <p/>}
+          
+          <h3></h3>
+            <ul className="observations">
+              { 
+              [1,2,3,4].map((i:number)=> 
+                <li className="observation-items is-loading" key={`item-${i}`}>
+                  <div className="observation-title" key={`title-${i}`}>
+                    <div className="observation-icon" key={`icon-${i}`}>
+                   <div className="observation-user-icon"></div>
+                    </div>
+                    <div className="observation-user" key={`user-${i}`}>
+                      <p></p>
+                    </div>
+                    <div className="observation-date" key={`date-${i}`}>
+                      <p></p>
+                    </div>
+                  </div>
+                  <div className="observation-content">
+                    <p></p>
+                  </div>
+                </li>
+                 )
+              }
+
+            </ul>
+        
+        </>}
         {!isLoading && <>
 
           {matches? <span>{user?.instrument.name}</span>: <p/>}
@@ -42,7 +71,7 @@ export function Observations(user: any){
                     />
                     </div>
                     <div className="observation-user" key={`user-${ob.id}`}>
-                      <p>{ob.student.firstName},</p>
+                      <p>{`${ob.student.firstName}`.toLowerCase()},</p>
                     </div>
                     <div className="observation-date" key={`date-${ob.id}`}>
                       <p>{ob.createdAt}</p>

@@ -7,15 +7,19 @@ import { Observations } from '@/components/Observations';
 import { Footer } from '@/components/Footer';
 import * as S from './styles';
 import { useContext, useEffect, useState } from 'react';
-import { useFetchUser } from '@/hooks/reactQuery/useIntegrationsApi';
+
+import { useFetchUser } from '@/hooks/reactQuery/users/integrationApi';
 import { parseCookies } from 'nookies';
 import { redirect } from 'next/navigation';
 import { AuthContext } from '@/contexts/AuthContext';
+import { useFetchStatus } from '@/hooks/reactQuery/home/integrationApi';
 
 
 export default function Dashboard() {
 	const { data, isLoading } = useFetchUser();
+	const { data: dataStatus, isLoading: isLoadingStatus } = useFetchStatus();
 	const { signOut } = useContext(AuthContext);
+
 
 	const [matches, setMatches] = useState(
 		window.matchMedia('(min-width: 740px)').matches
@@ -48,62 +52,60 @@ export default function Dashboard() {
 				<S.Content className="grid-content-area">
 					<h1>General Information <Link href="/signin" onClick={() => handleSignOut()}>Logout</Link></h1>
 					<div className="total-numbers">
-						<ul>
-							<li>
-								<S.Icon
-									key={`icon-1`}
-									className="Icon"
-									src={`/images/icons/general/green-ellipse.svg`}
-									width={9}
-									height={9}
-									alt={`green cicle`}
-								/>
-								<p>Groups:</p>
-								<span>2</span>
-							</li>
-							<li>
-								<S.Icon
-									key={`icon-1`}
-									className="Icon"
-									src={`/images/icons/general/green-ellipse.svg`}
-									width={9}
-									height={9}
-									alt={`green cicle`}
-								/>
-								<p>Students:</p>
-								<span>2</span>
-							</li>
-							<li>
-								<S.Icon
-									key={`icon-1`}
-									className="Icon"
-									src={`/images/icons/general/green-ellipse.svg`}
-									width={9}
-									height={9}
-									alt={`green cicle`}
-								/>
-								<p>Instruments:</p>
-								<span>2</span>
-							</li>
-							<li>
-								<S.Icon
-									key={`icon-1`}
-									className="Icon"
-									src={`/images/icons/general/green-ellipse.svg`}
-									width={9}
-									height={9}
-									alt={`green cicle`}
-								/>
-								<p>Naipes:</p>
-								<span>2</span>
-							</li>
+					{isLoadingStatus && <>
+						<ul className='is-loading'>
+							{
+							['groups','students','instruments','naipes'].map((value) => 
+							
+								<li key={`li-${value}`} >
+									<div className="Icon"></div>
+									<p key={`p-${value}`}></p>
+									<span key={`span-${value}`}>.</span>
+								</li>
+							)
+							}
 						</ul>
+					
+					</>}
+					{!isLoadingStatus && <>
+						<ul>
+							{
+							Object.entries(dataStatus as any).filter(([key,]) => key !== 'set').map(([key,value]) => 
+							
+								<li key={`li-${key}${value}`}>
+									<S.Icon
+										key={`icon-${key}`}
+										className="Icon"
+										src={`/images/icons/general/green-ellipse.svg`}
+										width={9}
+										height={9}
+										alt={`green cicle`}
+									/>
+									<p key={`p-${key}${value}`}>{key}:</p>
+									<span key={`span-${key}${value}`}>{value as number}</span>
+								</li>
+							)
+							}
+						</ul>
+					</>}
+					
 					</div>
-					<ChartBar data={[2, 4, 5, 1]} />
+
+					{isLoadingStatus && <>
+					<div className='is-loading'>
+						<div className='chart-loading'></div>
+					</div>
+						
+					</>}
+					{!isLoadingStatus && <>
+						<ChartBar data={dataStatus?.set as number[]} />
+					</>}
+					
 				</S.Content>
-				{matches ? <Theory instrument={'violin'} /> : <span />}
+				{matches ? <Theory/> : <span />}
 
 
+				
 				<Observations {...data} />
 
 				<Footer />

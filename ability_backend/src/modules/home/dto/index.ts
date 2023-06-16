@@ -1,6 +1,4 @@
 import * as DefaultDto from './default.dto';
-import * as CreateDto from './create.dto';
-import * as UpdateDto from './update.dto';
-import * as ListDto from './list.dto';
+import * as StatusDto from './status.dto';
 
-export { DefaultDto, CreateDto, UpdateDto, ListDto };
+export { DefaultDto, StatusDto };

@@ -34,7 +34,7 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
   max-width: ${CONTENT_MOBILE};
   max-height: auto;
 
@@ -70,6 +70,30 @@ export const Content = styled.div`
     }
   }
 
+  .is-loading {
+    background: #eee;
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    border-radius: 2px;
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+
+    li {
+      display: flex;
+      flex-direction: row;
+      width: ${CONTENT_MOBILE};
+      height: 3vh;
+      width: 50%;
+      span {
+        color: var(--white);
+      }
+    }
+
+    .chart-loading {
+      width: 70vw;
+      height: 20vh;
+    }
+  }
+
   @media (min-width: 740px) {
     width: ${CONTENT_TABLET};
     max-width: ${CONTENT_TABLET};
@@ -84,6 +108,17 @@ export const Content = styled.div`
       width: ${CONTENT_TABLET};
       height: 15vh;
       font-size: 0.9rem;
+    }
+
+    .is-loading {
+      li {
+        width: ${CONTENT_TABLET};
+      }
+
+      .chart-loading {
+        width: 80vw;
+        height: 27vh;
+      }
     }
   }
 
@@ -105,6 +140,17 @@ export const Content = styled.div`
       ul {
         flex-direction: column;
         row-gap: 1vh;
+      }
+    }
+
+    .is-loading {
+      li {
+        width: ${CONTENT_DESKTOP};
+      }
+
+      .chart-loading {
+        width: 52vw;
+        height: 20vh;
       }
     }
   }
