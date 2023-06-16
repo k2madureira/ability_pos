@@ -1,12 +1,5 @@
-import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
-	return (
-		<>
-			<h1>Home</h1>
-			<div>
-				<Link href="/dashboard">DASHBOARD</Link>
-			</div>
-		</>
-	);
+export default async function Page() {
+	 redirect('/signin')
 }

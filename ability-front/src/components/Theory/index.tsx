@@ -5,7 +5,6 @@ import * as S from "./styles";
 export function Theory(){
   const { data, isLoading } = useFetchTheory();
 
-  console.log({ data: data,isLoading })
   return (
     <div className="grid-theory-area">
       <S.Theory tabIndex={0}>

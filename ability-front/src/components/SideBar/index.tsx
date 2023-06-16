@@ -26,7 +26,7 @@ export function SideBar(){
                 return (
                   <li key={`li-${index}`}>
                     
-                    <Link className='li-link' href={`/dashboard/${item === "Home" ? "" : page}`}>
+                    <Link className='li-link' href={`/${page}`}>
                     <div className="li-icon">
                         <S.Icon 
                         key={`icon-${index}`}

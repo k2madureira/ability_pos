@@ -111,6 +111,7 @@ export const Content = styled.div`
     }
 
     .is-loading {
+      width: ${CONTENT_TABLET};
       li {
         width: ${CONTENT_TABLET};
       }
@@ -144,6 +145,7 @@ export const Content = styled.div`
     }
 
     .is-loading {
+      width: ${CONTENT_DESKTOP};
       li {
         width: ${CONTENT_DESKTOP};
       }

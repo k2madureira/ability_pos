@@ -1,5 +1,5 @@
 'use client';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
 	Container,
@@ -11,11 +11,22 @@ import {
 } from './styles';
 import Link from 'next/link';
 import { AuthContext } from '@/contexts/AuthContext';
+import { parseCookies } from 'nookies';
+import { redirect } from 'next/navigation';
 
 export interface ISignInProps {}
 const SignIn: React.FC<ISignInProps> = () => {
 	const { register, handleSubmit } = useForm();
 	const { signIn } = useContext(AuthContext);
+
+	useEffect(() => {
+		const { 'ability-token': token } = parseCookies();
+		
+		if (token) {
+			redirect('/home')
+		}
+		
+	}, []);
 
 	async function handleSignIn(data: any) {
 		await signIn(data);

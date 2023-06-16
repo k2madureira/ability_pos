@@ -1,31 +1,42 @@
 'use client';
+import { useState } from "react";
 import * as S from "./styles";
-
+import { DropDown } from '@/components/DropDown';
 interface IProps {
   isHome?: boolean;
   txt: string;
 }
 
 export function NavBar({ isHome =false, txt }:IProps){
+  const [isOpen, setOpen] = useState(false);
+
+  function handleOpen (){ 
+    setOpen(current => !current) 
+  };
+ 
   return (
     <div className="grid-nav-area">
       <S.Nav tabIndex={0}>
           {
             isHome ? 
             <h2>Welcome, <span>{txt}</span></h2> : 
-            <h2>{txt}</h2>
+            <h2/>
           }
           
           <div className="select-nav">
             <div className="select-nav-icons">
-            <S.Icon
-              key={'down-nav-icon'}
-              className="nav-icon chevron-down" 
-              src="/images/icons/general/chevron-down.svg"
-              width={99}
-              height={56}
-              alt="down icon"
-            />
+            <button onClick={handleOpen}>
+              <S.Icon
+                key={'down-nav-icon'}
+                className={`nav-icon chevron-down ${(isOpen ?'is-open': '')}`} 
+                src="/images/icons/general/chevron-down.svg"
+                width={99}
+                height={56}
+                alt="down icon"
+           
+              />
+            </button>
+            
             
             <S.Icon
               key={'user-nav-icon'}
@@ -35,10 +46,12 @@ export function NavBar({ isHome =false, txt }:IProps){
               height={56}
               alt="user icon"
             />
+            
             </div>
-            <div className="select-nav-user">
-              <p>{!isHome ? txt: ''}</p>
-            </div>
+            
+            {!isOpen && <></>}
+            {isOpen && <DropDown open name={txt}/>}
+            
             
           </div>
         </S.Nav>

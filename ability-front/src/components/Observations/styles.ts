@@ -155,7 +155,7 @@ export const Observations = styled.div`
         height: auto;
         padding: 0.3rem;
         padding-left: 5%;
-        margin-left: 1rem;
+        margin-left: 0%.5;
         margin-top: 0.4rem;
 
         .observation-title {
@@ -236,7 +236,7 @@ export const Observations = styled.div`
         height: auto;
         padding: 0.5rem;
         padding-left: 5%;
-        margin-left: 1rem;
+        margin-left: 2rem;
         margin-top: 1rem;
 
         .observation-title {

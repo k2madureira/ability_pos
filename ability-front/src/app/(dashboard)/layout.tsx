@@ -3,7 +3,7 @@ import * as DS from './dashboardStyle';
 import { SideBar } from '@/components/SideBar';
 
 export const metadata = {
-	title: 'Ability Dashboard',
+	title: 'Ability',
 	description: 'Music studies',
 };
 

@@ -48,6 +48,16 @@ export const Nav = styled.div`
       justify-self: end;
       padding: 1rem;
 
+      button {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+      }
+
       .nav-icon {
         width: 60%;
         padding: 0.2rem;
@@ -55,17 +65,17 @@ export const Nav = styled.div`
 
       .chevron-down {
         transform: rotate(0);
+        width: 100%;
       }
 
-      &:hover {
+      .is-open {
         font-weight: 700;
 
-        .chevron-down {
-          filter: invert(9%) sepia(78%) saturate(3034%) hue-rotate(285deg)
-            brightness(93%) contrast(108%);
-          transform: rotate(45deg);
-        }
+        filter: invert(9%) sepia(78%) saturate(3034%) hue-rotate(285deg)
+          brightness(93%) contrast(108%);
+        transform: rotate(45deg);
       }
+
       &:focus {
         outline: none;
       }

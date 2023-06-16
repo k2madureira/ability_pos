@@ -8,7 +8,7 @@ export const Icon = styled(Image)`
   background-size: cover;
 `;
 
-export const THEORY_DESKTOP = "54vw";
+export const THEORY_DESKTOP = "52vw";
 export const THEORY_TABLET = "38vw";
 
 export const Theory = styled.div`
