@@ -1,16 +1,13 @@
 'use client';
-import Link from 'next/link';
 import { NavBar } from '@/components/NavBar';
 import { ChartBar } from '@/components/ChartBar';
 import { Theory } from '@/components/Theory';
 import { Observations } from '@/components/Observations';
 import { Footer } from '@/components/Footer';
 import * as S from './styles';
-import { useContext, useEffect, useState } from 'react';
+import {  useContext, useEffect, useState } from 'react';
 
 import { useFetchUser } from '@/hooks/reactQuery/users/integrationApi';
-import { parseCookies } from 'nookies';
-import { redirect } from 'next/navigation';
 import { AuthContext } from '@/contexts/AuthContext';
 import { useFetchStatus } from '@/hooks/reactQuery/home/integrationApi';
 
@@ -18,8 +15,7 @@ import { useFetchStatus } from '@/hooks/reactQuery/home/integrationApi';
 export default function Dashboard() {
 	const { data, isLoading } = useFetchUser();
 	const { data: dataStatus, isLoading: isLoadingStatus } = useFetchStatus();
-	const { signOut } = useContext(AuthContext);
-
+	const { verifyAuthenticated } = useContext(AuthContext);
 
 	const [matches, setMatches] = useState(
 		window.matchMedia('(min-width: 740px)').matches
@@ -27,21 +23,13 @@ export default function Dashboard() {
 
 
 	useEffect(() => {
-		const { 'ability-token': token } = parseCookies();
-
-		
-		if (!token) {
-			redirect('/signin')
-		}
+		verifyAuthenticated();
 		window
 			.matchMedia('(min-width: 740px)')
 			.addEventListener('change', (e) => setMatches(e.matches));
 	}, []);
 
 
-	async function handleSignOut() {
-		await signOut();
-	}
 
 	return (
 		<>
@@ -50,7 +38,7 @@ export default function Dashboard() {
 				<NavBar isHome txt={data?.firstName as string} />
 
 				<S.Content className="grid-content-area">
-					<h1>General Information <Link href="/signin" onClick={() => handleSignOut()}>Logout</Link></h1>
+					<h1>General Information</h1>
 					<div className="total-numbers">
 					{isLoadingStatus && <>
 						<ul className='is-loading'>

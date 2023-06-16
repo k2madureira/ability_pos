@@ -1,5 +1,5 @@
-import '../../styles/global.css';
-import * as DS from './dashboardStyle';
+import '../../../styles/global.css';
+import * as LS from './layoutStyle';
 import { SideBar } from '@/components/SideBar';
 
 export const metadata = {
@@ -7,18 +7,18 @@ export const metadata = {
 	description: 'Music studies',
 };
 
-export default function DashboardLayout({
+export default function StudentsLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
 	
 	return (
-		<DS.Container>
+		<LS.Container>
 			<SideBar />
-			<DS.Content>
+			<LS.Content>
 				{children}	
-			</DS.Content>
-		</DS.Container>
+			</LS.Content>
+		</LS.Container>
 	);
 }

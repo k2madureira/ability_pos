@@ -2,7 +2,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import { recoverUserInformation, signInRequest } from '@/services/auth';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { api } from '@/services/api';
 
 type User = {
@@ -35,6 +35,7 @@ type AuthContextType = {
 	user: User | null;
 	signIn: (data: SignInRequest) => Promise<void>;
 	signOut: () => Promise<void>;
+	verifyAuthenticated: () => Promise<void>;
 };
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -64,15 +65,25 @@ export function AuthProvider({ children }: any) {
 		api.defaults.headers['Authorization'] = `Bearer ${token}`;
 		setUser(user);
 
-		router.push('/dashboard');
+		router.push('/home');
 	}
 
 	async function signOut() {
 		destroyCookie(undefined,'ability-token')
 	}
 
+	async function verifyAuthenticated () {
+		const { 'ability-token': token } = parseCookies();
+
+		
+		if (!token) {
+			redirect('/signin')
+		}
+	}
+	
+
 	return (
-		<AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+		<AuthContext.Provider value={{ user, isAuthenticated,verifyAuthenticated, signIn, signOut }}>
 			{children}
 		</AuthContext.Provider>
 	);

@@ -57,6 +57,10 @@ export const Nav = styled.div`
         cursor: pointer;
         outline: inherit;
       }
+      .engine-icon {
+        justify-self: center;
+        max-width: 100%;
+      }
 
       .nav-icon {
         width: 60%;

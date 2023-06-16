@@ -1,5 +1,6 @@
 'use client';
 import { useState } from "react";
+import { FaRegSun } from 'react-icons/fa';
 import * as S from "./styles";
 import { DropDown } from '@/components/DropDown';
 interface IProps {
@@ -26,6 +27,7 @@ export function NavBar({ isHome =false, txt }:IProps){
           <div className="select-nav">
             <div className="select-nav-icons">
             <button onClick={handleOpen}>
+            
               <S.Icon
                 key={'down-nav-icon'}
                 className={`nav-icon chevron-down ${(isOpen ?'is-open': '')}`} 
@@ -37,15 +39,9 @@ export function NavBar({ isHome =false, txt }:IProps){
               />
             </button>
             
+            <FaRegSun key={'user-nav-icon'}
+              className="engine-icon"/>
             
-            <S.Icon
-              key={'user-nav-icon'}
-              className="nav-icon"
-              src="/images/icons/general/user.svg"
-              width={99}
-              height={56}
-              alt="user icon"
-            />
             
             </div>
             
