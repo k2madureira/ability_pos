@@ -1,128 +1,57 @@
 'use client';
-import {useReactTable, createColumnHelper, flexRender, getCoreRowModel} from '@tanstack/react-table';
-import { FaUserEdit, FaPowerOff, FaRegStar } from 'react-icons/fa';
+import {useReactTable, flexRender, getCoreRowModel} from '@tanstack/react-table';
+import { FaEdit, FaList,FaTrash} from 'react-icons/fa';
 import * as S from "./styles";
-import { useReducer, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { studentData, columnsStudent } from '@/hooks/tableData/students';
+import { groupData, columnsGroup } from '@/hooks/tableData/groups';
 
 interface IProps {
-  name: string;
+  type: string;
 }
 
+export function Table({ type }:IProps){
+  const [matches, setMatches] = useState(
+    window.matchMedia("(min-width: 740px)").matches
+  );
 
-type Student = {
-  name: string;
-  group: string;
-  instrument: string;
-};
-
-const studentData: Student[] = [
-  {
-    name: 'Lenilson 1111111111111111111',
-    group: 'Adulto',
-    instrument: 'Violino'
-  },
-  {
-    name: 'Samuel',
-    group: 'Infantil',
-    instrument: 'Violino'
-  },
-  {
-    name: 'Lenilson 1111111111111111111',
-    group: 'Adulto',
-    instrument: 'Violino'
-  },
-  {
-    name: 'Samuel',
-    group: 'Infantil',
-    instrument: 'Violino'
-  },
-  {
-    name: 'Lenilson 1111111111111111111',
-    group: 'Adulto',
-    instrument: 'Violino'
-  },
-  {
-    name: 'Samuel',
-    group: 'Infantil',
-    instrument: 'Violino'
-  },
-  {
-    name: 'Lenilson 1111111111111111111',
-    group: 'Adulto',
-    instrument: 'Violino'
-  },
-  {
-    name: 'Samuel',
-    group: 'Infantil',
-    instrument: 'Violino'
-  },
-  {
-    name: 'Lenilson 1111111111111111111',
-    group: 'Adulto',
-    instrument: 'Violino'
-  },
-  {
-    name: 'Samuel',
-    group: 'Infantil',
-    instrument: 'Violino'
-  },
-  {
-    name: 'Lenilson 1111111111111111111',
-    group: 'Adulto',
-    instrument: 'Violino'
-  },
-  {
-    name: 'Samuel',
-    group: 'Infantil',
-    instrument: 'Violino'
-  }
-];
-
-const headers = ['Name','Group','Instrument'];
-const columnStudentHelper = createColumnHelper<Student>();
-
-const columnsStudent = [
-  columnStudentHelper.accessor(row => row.name, {
-    id: 'Name',
-    cell: info => <i>{info.getValue()}</i>,
-    header: () => 'Name',
-    footer: info => info.column.id,
-  }),
-  columnStudentHelper.accessor(row => row.group, {
-    id: 'Group',
-    cell: info => <i>{info.getValue()}</i>,
-    header: () => 'Group',
-    footer: info => info.column.id,
-  }),
-  columnStudentHelper.accessor(row => row.instrument, {
-    id: 'Instrument',
-    cell: info => <i>{info.getValue()}</i>,
-    header: () => 'Instrument',
-    footer: info => info.column.id,
-  }),
-];
-
-
-
-export function Table({ name }:IProps){
-  const [data, setData] = useState(() => [...studentData])
-  const rerender = useReducer(() => ({}), {})[1]
+  const data: any = type === 'students' ? studentData: groupData;
+  const columns: any = type === 'students' ? columnsStudent: columnsGroup;
 
   const table = useReactTable({
-    data: studentData,
-    columns: columnsStudent,
+    data,
+    columns,
     getCoreRowModel: getCoreRowModel(),
-  })
-console.log({ ...table.getRowModel() })
+  });
+
+  useEffect(() => {
+    window
+    .matchMedia("(min-width: 740px)")
+    .addEventListener('change', e => setMatches( e.matches ));
+
+    if (!matches) {
+
+      table.setColumnVisibility({
+        Group: false,
+        Instrument: false,
+        Students: false
+      })
+    }
+
+  }, []);
+  
+ 
+
   return (
     <div className='grid-content-area'>
+
       <S.Table tabIndex={0}>
       <table>
         <thead>
-          {table.getHeaderGroups().map((headerGroup, index) => (
+          {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map(header => (
-                <th key={header.id} className={header.id !== 'Name'? 'hidden-info':''}>
+                <th key={header.id}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -139,11 +68,15 @@ console.log({ ...table.getRowModel() })
           {table.getRowModel().rows.map(row => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell, index) => (
-                <td key={cell.id} data-th={headers[index]} className={index !== 0? 'hidden-info':''}>
+                <td key={cell.id} className={index !== 0? 'hidden-info':''}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
-              <td data-th="Options">OPTIONS</td>
+              <td key='options' className='icon-options'>
+                <FaEdit className='icon icon-edit'/>
+                <FaList className='icon icon-list'/>
+                <FaTrash className='icon icon-trash'/>
+              </td>
             </tr>
           ))}
         </tbody>

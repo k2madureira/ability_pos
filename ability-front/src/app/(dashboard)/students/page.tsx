@@ -39,7 +39,10 @@ export default function Students() {
 
 				<S.Content className="grid-content-area">
 					<h1>Students </h1>
-					<Table name={data?.firstName as string}/>
+					<Table key='students-table' type='students'/>
+
+					<h1>Groups </h1>
+					<Table key='group-table' type='groups'/>
 					
 				</S.Content>
 				{matches ? <Observations {...data} /> : <span />}
