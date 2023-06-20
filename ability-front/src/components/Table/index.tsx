@@ -38,7 +38,7 @@ export function Table({ type }:IProps){
       })
     }
 
-  }, []);
+  }, [matches, table]);
   
  
 
