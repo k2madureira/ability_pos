@@ -10,7 +10,7 @@ export const Icon = styled(Image)`
 
 export const CONTENT_DESKTOP = "52vw";
 export const CONTENT_TABLET = "2fr";
-export const CONTENT_MOBILE = "82vw";
+export const CONTENT_MOBILE = "80vw";
 
 export const Nav = styled.div`
   display: flex;

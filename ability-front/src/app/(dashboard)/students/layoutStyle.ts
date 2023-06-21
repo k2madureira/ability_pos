@@ -11,8 +11,8 @@ export const Content = styled.div`
   display: grid;
   grid-template:
     "sidenav nav" var(--grd-dash-nav-height)
-    "sidenav content" var(--grd-dash-content-height)
-    "sidenav content" var(--grd-dash-observations-height)
+    "sidenav content" 40vh
+    "sidenav content" 45vh
     "sidenav footer" var(--grd-dash-footer-height)
     / var(--grd-dash-sidebar-width) var(--grd-dash-content-width);
   column-gap: 2vw;

@@ -68,6 +68,7 @@ model UserGroup {
   userId     String   @default(uuid())
   groupId    String   @default(uuid())
   instructor Boolean  @default(false)
+  main       Boolean  @default(false)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   deletedAt  Boolean  @default(false)

@@ -38,11 +38,11 @@ export default function Students() {
 				<NavBar txt={data?.firstName as string} />
 
 				<S.Content className="grid-content-area">
-					<h1>Students </h1>
+					{/* <h1>Students </h1>
 					<Table key='students-table' type='students'/>
 
 					<h1>Groups </h1>
-					<Table key='group-table' type='groups'/>
+					<Table key='group-table' type='groups'/> */}
 					
 				</S.Content>
 				{matches ? <Observations {...data} /> : <span />}

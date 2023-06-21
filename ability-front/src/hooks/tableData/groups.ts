@@ -1,57 +1,15 @@
 import { createColumnHelper } from "@tanstack/react-table";
+import { Group } from "../dto/Igroup.dto";
 
-type Group = {
+type tableGroup = {
   name: string;
   students: number;
-  instrument: string;
+  started: string;
 };
 
-export const groupData: Group[] = [
-  {
-    name: "Infantil",
-    students: 2,
-    instrument: "Violino",
-  },
-  {
-    name: "Infantil B",
-    students: 3,
-    instrument: "Violino",
-  },
-  {
-    name: "Juvenil lvl 1",
-    students: 2,
-    instrument: "Trompete",
-  },
-  {
-    name: "Juvenil lvl 2",
-    students: 3,
-    instrument: "Clarinete",
-  },
-  {
-    name: "Juvenil lvl 3",
-    students: 2,
-    instrument: "Trompete",
-  },
-  {
-    name: "Adulto",
-    students: 3,
-    instrument: "Viola",
-  },
-  {
-    name: "Adulto 2",
-    students: 2,
-    instrument: "Violino",
-  },
-  {
-    name: "Adulto 3",
-    students: 3,
-    instrument: "Flauta",
-  },
-];
+const columnHelper = createColumnHelper<tableGroup>();
 
-const columnHelper = createColumnHelper<Group>();
-
-export const columnsGroup = [
+export const columnsGroups = [
   columnHelper.accessor((row) => row.name, {
     id: "Name",
     cell: (info) => `${info.getValue()}`,
@@ -65,10 +23,30 @@ export const columnsGroup = [
     header: () => "Students",
     footer: (info) => info.column.id,
   }),
-  columnHelper.accessor((row) => row.instrument, {
-    id: "Instrument",
+  columnHelper.accessor((row) => row.started, {
+    id: "Started",
     cell: (info) => `${info.getValue()}`,
-    header: () => "Instrument",
+    header: () => "Started",
     footer: (info) => info.column.id,
   }),
 ];
+
+export function buildGroupsData(groupsResponse: Group[] | undefined): {
+  data: any;
+} {
+  const data = groupsResponse?.length
+    ? groupsResponse.map((group) => ({
+        name: group.name,
+        students: group.totalStudents,
+        started: group.createdAt,
+      }))
+    : [
+        {
+          name: "-",
+          students: 0,
+          started: "-",
+        },
+      ];
+
+  return { data };
+}

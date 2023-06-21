@@ -10,7 +10,7 @@ const raleway = Raleway({ subsets: ['latin'] });
 const queryClient = new QueryClient({
 	defaultOptions: {
     queries: {
-      refetchOnWindowFocus: true,
+      refetchOnWindowFocus: false,
     },
   },
 });

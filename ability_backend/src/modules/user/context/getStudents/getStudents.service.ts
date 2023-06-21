@@ -35,18 +35,12 @@ export class GetStudentsService {
         userGroup: {
           some: {
             groupId: { in: selectedGroupIds },
+            main: { equals: true },
           },
         },
         profile: {
           slug: {
             equals: 'student',
-          },
-        },
-        userMethod: {
-          every: {
-            main: {
-              equals: true,
-            },
           },
         },
       },
@@ -61,20 +55,15 @@ export class GetStudentsService {
             postal: true,
           },
         },
-        userMethod: {
+        instrument: true,
+        userGroup: {
           select: {
-            method: {
-              select: {
-                id: true,
-                title: true,
-                slug: true,
-                instrument: {
-                  select: {
-                    name: true,
-                    slug: true,
-                  },
-                },
-              },
+            group: true,
+            main: true,
+          },
+          where: {
+            main: {
+              equals: true,
             },
           },
         },

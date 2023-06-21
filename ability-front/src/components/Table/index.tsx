@@ -2,21 +2,53 @@
 import {useReactTable, flexRender, getCoreRowModel} from '@tanstack/react-table';
 import { FaEdit, FaList,FaTrash} from 'react-icons/fa';
 import * as S from "./styles";
-import { useEffect, useState } from 'react';
-import { studentData, columnsStudent } from '@/hooks/tableData/students';
-import { groupData, columnsGroup } from '@/hooks/tableData/groups';
+import {  useEffect, useState } from 'react';
+import { columnsStudent, buildStudentsData } from '@/hooks/tableData/students';
+import { columnsGroups, buildGroupsData } from '@/hooks/tableData/groups';
+import { useFetchStudents } from '@/hooks/reactQuery/users/integrationApi';
+import { useFetchGroup } from '@/hooks/reactQuery/groups/integrationApi';
 
 interface IProps {
   type: string;
 }
 
 export function Table({ type }:IProps){
+  const { data: dataStudents, isLoading: isLoadingStudents } = useFetchStudents();
+  const { data: dataGroups, isLoading: isLoadingGroups} = useFetchGroup();
+
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 740px)").matches
   );
 
-  const data: any = type === 'students' ? studentData: groupData;
-  const columns: any = type === 'students' ? columnsStudent: columnsGroup;
+
+  let dataStudent = [
+    {
+      name: "-",
+      group: "-",
+      instrument: "-",
+    },
+  ]
+  if (type === 'students' && !isLoadingStudents) {
+    const { data } = buildStudentsData(dataStudents);
+    dataStudent = data;
+  }
+
+  let dataGroup = [
+    {
+      name: "-",
+      students: 0,
+      started: "-",
+    },
+  ]
+  if (type === 'groups' && !isLoadingGroups) {
+    const { data } = buildGroupsData(dataGroups);
+    dataGroup = data;
+  }
+
+
+
+  const data: any = type === 'students' ? dataStudent: dataGroup;
+  const columns: any = type === 'students' ? columnsStudent: columnsGroups;
 
   const table = useReactTable({
     data,
@@ -30,11 +62,11 @@ export function Table({ type }:IProps){
     .addEventListener('change', e => setMatches( e.matches ));
 
     if (!matches) {
-
       table.setColumnVisibility({
         Group: false,
         Instrument: false,
-        Students: false
+        Students: false,
+        Started: false
       })
     }
 
@@ -43,8 +75,7 @@ export function Table({ type }:IProps){
  
 
   return (
-    <div className='grid-content-area'>
-
+   
       <S.Table tabIndex={0}>
       <table>
         <thead>
@@ -83,6 +114,6 @@ export function Table({ type }:IProps){
   
       </table>
       </S.Table>
-    </div>
+    
   );
 }

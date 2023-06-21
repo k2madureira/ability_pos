@@ -1,53 +1,11 @@
 import { createColumnHelper } from "@tanstack/react-table";
+import { User } from "../dto/Iuser.dto";
 
 type Student = {
   name: string;
   group: string;
   instrument: string;
 };
-
-export const studentData: Student[] = [
-  {
-    name: "Lenilson 1111111111111111111",
-    group: "Adulto",
-    instrument: "Violino",
-  },
-  {
-    name: "Samuel",
-    group: "Infantil",
-    instrument: "Violino",
-  },
-  {
-    name: "Lenilson 1111111111111111111",
-    group: "Adulto",
-    instrument: "Violino",
-  },
-  {
-    name: "Samuel",
-    group: "Infantil",
-    instrument: "Violino",
-  },
-  {
-    name: "Lenilson 1111111111111111111",
-    group: "Adulto",
-    instrument: "Violino",
-  },
-  {
-    name: "Samuel",
-    group: "Infantil",
-    instrument: "Violino",
-  },
-  {
-    name: "Lenilson 1111111111111111111",
-    group: "Adulto",
-    instrument: "Violino",
-  },
-  {
-    name: "Samuel",
-    group: "Infantil",
-    instrument: "Violino",
-  },
-];
 
 const columnHelper = createColumnHelper<Student>();
 
@@ -72,3 +30,23 @@ export const columnsStudent = [
     footer: (info) => info.column.id,
   }),
 ];
+
+export function buildStudentsData(studentsResponse: User[] | undefined): {
+  data: any;
+} {
+  const data = studentsResponse?.length
+    ? studentsResponse.map((student) => ({
+        name: student.firstName,
+        group: student.userGroup[0].group.name,
+        instrument: student.instrument.name,
+      }))
+    : [
+        {
+          name: "-",
+          group: "-",
+          instrument: "-",
+        },
+      ];
+
+  return { data };
+}
