@@ -6,13 +6,13 @@ import { GroupResponse } from "../../dto/Igroup.dto";
 function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-const getGroups = async (): AxiosPromise<GroupResponse> => {
+async function getGroups(): AxiosPromise<GroupResponse> {
   await timeout(5000);
   const findObservations = await api.get<GroupResponse>(`/groups`);
   return findObservations;
-};
+}
 
-export const useFetchGroup = () => {
+export function useFetchGroups() {
   const query = useQuery({
     queryFn: getGroups,
     queryKey: ["get-group"],
@@ -22,4 +22,4 @@ export const useFetchGroup = () => {
     ...query,
     data: query.data?.data.items,
   };
-};
+}

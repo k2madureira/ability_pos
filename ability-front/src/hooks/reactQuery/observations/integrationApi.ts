@@ -6,9 +6,9 @@ import { ObservationResponse } from "../../dto/Iobservation.dto";
 function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-const getObservations = async ({
+async function getObservations({
   queryKey,
-}: any): AxiosPromise<ObservationResponse> => {
+}: any): AxiosPromise<ObservationResponse> {
   const [_, user] = queryKey;
   const queryParams =
     user?.profile.slug === "instructor" ? "instructorId" : "studentId";
@@ -18,9 +18,9 @@ const getObservations = async ({
     `/observations?${queryParams}=${user?.id}&sortField=createdAt&sortOrder=desc&perPage=4`
   );
   return findObservations;
-};
+}
 
-export const useFetchObservation = (user: any) => {
+export function useFetchObservation(user: any) {
   const query = useQuery({
     queryFn: getObservations,
     queryKey: ["get-observation", user],
@@ -30,4 +30,4 @@ export const useFetchObservation = (user: any) => {
     ...query,
     data: query.data?.data.items,
   };
-};
+}

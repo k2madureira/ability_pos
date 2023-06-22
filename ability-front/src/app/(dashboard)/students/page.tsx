@@ -5,31 +5,93 @@ import { Table } from '@/components/Table';
 import { Observations } from '@/components/Observations';
 import { Footer } from '@/components/Footer';
 import * as S from './styles';
-import { useContext, useEffect, useState } from 'react';
-import { useFetchUser } from '@/hooks/reactQuery/users/integrationApi';
-import { useFetchStatus } from '@/hooks/reactQuery/home/integrationApi';
+import { useContext, useEffect, useMemo } from 'react';
+import { useFetchStudents, useFetchUser } from '@/hooks/reactQuery/users/integrationApi';
+import { useFetchGroups } from '@/hooks/reactQuery/groups/integrationApi';
 import { AuthContext } from '@/contexts/AuthContext';
+import { useMediaQuery } from '@/hooks/custom/useMediaQuery';
 
 
 export default function Students() {
+	const matchesMedia = useMediaQuery('(min-width: 1024px)');
 	const { data, isLoading } = useFetchUser();
-	const { data: dataStatus, isLoading: isLoadingStatus } = useFetchStatus();
-	const { signOut,verifyAuthenticated } = useContext(AuthContext);
-
-
-	const [matches, setMatches] = useState(
-		window.matchMedia('(min-width: 1024px)').matches
-	);
-
+	const { data: dataStudents, isLoading: isLoadingStudents } = useFetchStudents();
+	const {  data: dataGroups, isLoading: isLoadingGroups} = useFetchGroups();
+	const { verifyAuthenticated } = useContext(AuthContext);
 
 	useEffect(() => {
 		verifyAuthenticated();
-		window
-			.matchMedia('(min-width: 1024px)')
-			.addEventListener('change', (e) => setMatches(e.matches));
 	}, []);
 
+	const studentColumns = useMemo(() => [
+		{
+			accessorKey: 'nome',
+			header: 'Nome',
+			size: 150,
+		},
+		{
+			accessorKey: 'grupo',
+			header: 'Grupo',
+			size: 150,
+		},
+		{
+			accessorKey: 'instrumento',
+			header: 'Instrumento',
+			size: 150,
+		},
+	],[]);
+	let studentData = [
+		{
+			nome: '',
+			grupo: '',
+			instrumento: ''
+		}
+	];
+	if (!isLoadingStudents && dataStudents) {
+		studentData = dataStudents.map(student => (
+			{
+				nome: student.firstName,
+				grupo: student.userGroup[0].group.name,
+				instrumento: student.instrument.name
+			}
+			));
+	}
 
+
+	const groupColumns = useMemo(() => [
+		{
+			accessorKey: 'nome',
+			header: 'Nome',
+			size: 150,
+		},
+		{
+			accessorKey: 'estudantes',
+			header: 'Estudantes',
+			size: 150,
+		},
+		{
+			accessorKey: 'iniciado',
+			header: 'Iniciado',
+			size: 150,
+		},
+	],[]);
+	
+	let groupData = [
+		{
+			nome: '',
+			estudantes: 0,
+			iniciado: ''
+		}
+	];
+	if (!isLoadingGroups && dataGroups) {
+		groupData = dataGroups.map(student => (
+			{
+				nome: student.name,
+				estudantes: student.totalStudents,
+				iniciado: student.createdAt
+			}
+			));
+	}
 
 	return (
 		<>
@@ -38,14 +100,22 @@ export default function Students() {
 				<NavBar txt={data?.firstName as string} />
 
 				<S.Content className="grid-content-area">
-					{/* <h1>Students </h1>
-					<Table key='students-table' type='students'/>
+					<h1>Students </h1>
+					{isLoadingStudents && <p>Carregando estudantes</p>}
+					{!isLoadingStudents && <>
+						<Table key='students-table' data={studentData} theadTh={['Nome','Grupo','Instrumento']} columns={studentColumns}/>
+					</>}
+					
 
 					<h1>Groups </h1>
-					<Table key='group-table' type='groups'/> */}
+					{isLoadingGroups && <p>Carregando grupos</p>}
+					{!isLoadingGroups && <>
+						<Table key='group-table' data={groupData} theadTh={['Nome','Estudantes','Instrumento']} columns={groupColumns}/>
+					</>}
+					
 					
 				</S.Content>
-				{matches ? <Observations {...data} /> : <span />}
+				{matchesMedia ? <Observations {...data} /> : <span />}
 
 
 				

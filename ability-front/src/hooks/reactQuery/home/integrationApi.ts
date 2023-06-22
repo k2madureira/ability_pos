@@ -6,19 +6,19 @@ import { StatusResponse, TheoryResponse } from "../../dto/Ihome.dto";
 function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-const getStatus = async (): AxiosPromise<StatusResponse> => {
+async function getStatus(): AxiosPromise<StatusResponse> {
   await timeout(5000);
   const findStatus = await api.get<StatusResponse>(`/home`);
   return findStatus;
-};
+}
 
-const getSTheory = async (): AxiosPromise<TheoryResponse> => {
+async function getSTheory(): AxiosPromise<TheoryResponse> {
   await timeout(5000);
   const findTheory = await api.get<TheoryResponse>(`/theory`);
   return findTheory;
-};
+}
 
-export const useFetchStatus = () => {
+export function useFetchStatus() {
   const query = useQuery({
     queryFn: getStatus,
     queryKey: ["get-status"],
@@ -28,9 +28,9 @@ export const useFetchStatus = () => {
     ...query,
     data: query.data?.data,
   };
-};
+}
 
-export const useFetchTheory = () => {
+export function useFetchTheory() {
   const query = useQuery({
     queryFn: getSTheory,
     queryKey: ["get-theory"],
@@ -40,4 +40,4 @@ export const useFetchTheory = () => {
     ...query,
     data: query.data?.data,
   };
-};
+}

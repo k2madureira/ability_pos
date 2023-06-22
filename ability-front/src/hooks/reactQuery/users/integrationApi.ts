@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { api } from "@/services/api";
 import { AxiosPromise } from "axios";
-import { UserResponse, StudentsResponse } from "../../dto/Iuser.dto";
+import { UserResponse, StudentsResponse, User } from "../../dto/Iuser.dto";
 
 const getUser = async (): AxiosPromise<UserResponse> => {
   const findUser = await api.get<UserResponse>(`/me`);
@@ -11,6 +11,11 @@ const getUser = async (): AxiosPromise<UserResponse> => {
 const getStudents = async (): AxiosPromise<StudentsResponse> => {
   const findStudents = await api.get<StudentsResponse>(`/students`);
   return findStudents;
+};
+
+const getStudents2 = async (): Promise<User[]> => {
+  const findStudents = await api.get<StudentsResponse>(`/students`);
+  return findStudents.data.items;
 };
 
 export const useFetchUser = () => {
@@ -25,7 +30,7 @@ export const useFetchUser = () => {
   };
 };
 
-export const useFetchStudents = () => {
+export function useFetchStudents() {
   const query = useQuery({
     queryFn: getStudents,
     queryKey: ["get-students"],
@@ -35,4 +40,11 @@ export const useFetchStudents = () => {
     ...query,
     data: query.data?.data.items,
   };
-};
+}
+
+export function useFetchStudents2() {
+  return useQuery({
+    queryFn: getStudents2,
+    queryKey: ["get-students"],
+  });
+}

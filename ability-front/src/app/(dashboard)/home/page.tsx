@@ -5,30 +5,23 @@ import { Theory } from '@/components/Theory';
 import { Observations } from '@/components/Observations';
 import { Footer } from '@/components/Footer';
 import * as S from './styles';
-import {  useContext, useEffect, useState } from 'react';
+import {  useContext, useEffect } from 'react';
 
 import { useFetchUser } from '@/hooks/reactQuery/users/integrationApi';
 import { AuthContext } from '@/contexts/AuthContext';
 import { useFetchStatus } from '@/hooks/reactQuery/home/integrationApi';
+import { useMediaQuery } from '@/hooks/custom/useMediaQuery';
 
 
 export default function Dashboard() {
+	const matchesMedia = useMediaQuery('(min-width: 1024px)');
 	const { data, isLoading } = useFetchUser();
 	const { data: dataStatus, isLoading: isLoadingStatus } = useFetchStatus();
 	const { verifyAuthenticated } = useContext(AuthContext);
 
-	const [matches, setMatches] = useState(
-		window.matchMedia('(min-width: 740px)').matches
-	);
-
-
 	useEffect(() => {
 		verifyAuthenticated();
-		window
-			.matchMedia('(min-width: 740px)')
-			.addEventListener('change', (e) => setMatches(e.matches));
 	}, []);
-
 
 
 	return (
@@ -90,7 +83,7 @@ export default function Dashboard() {
 					</>}
 					
 				</S.Content>
-				{matches ? <Theory/> : <span />}
+				{matchesMedia ? <Theory/> : <span />}
 
 
 				

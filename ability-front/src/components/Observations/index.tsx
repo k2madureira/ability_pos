@@ -1,28 +1,20 @@
 'use client';
 import * as S from "./styles";
-import { useEffect, useState } from 'react';
 import { useFetchObservation } from "@/hooks/reactQuery/observations/integrationApi";
+import { useMediaQuery } from "@/hooks/custom/useMediaQuery";
 
 
 export function Observations(user: any){
+  const matchesMedia = useMediaQuery('(min-width: 1024px)');
   const { data, isLoading } = useFetchObservation(user);
 
-  const [matches, setMatches] = useState(
-    window.matchMedia("(min-width: 1024px)").matches
-  )
-  useEffect(() => {
-    window
-    .matchMedia("(min-width: 1024px)")
-    .addEventListener('change', e => setMatches( e.matches ));
-  }, []);
-  
- 
+
   return (
     <div className="grid-observations-area">
       <S.Observations tabIndex={0}>
         {isLoading && <>
         
-          {matches? <span></span>: <p/>}
+          {matchesMedia? <span></span>: <p/>}
           
           <h3></h3>
             <ul className="observations">
@@ -52,7 +44,7 @@ export function Observations(user: any){
         </>}
         {!isLoading && <>
 
-          {matches? <span>{user?.instrument.name}</span>: <p/>}
+          {matchesMedia? <span>{user?.instrument.name}</span>: <p/>}
           
           <h3>Observations</h3>
             <ul className="observations">
