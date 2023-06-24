@@ -8,8 +8,8 @@ export const Icon = styled(Image)`
   background-size: cover;
 `;
 
-export const CONTENT_DESKTOP = "52vw";
-export const CONTENT_TABLET = "2fr";
+export const CONTENT_DESKTOP = "54vw";
+export const CONTENT_TABLET = "78vw";
 export const CONTENT_MOBILE = "80vw";
 
 export const Nav = styled.div`
@@ -103,22 +103,10 @@ export const Content = styled.div`
       height: 4vh;
     }
 
-    .total-numbers {
-      margin-top: 1vh;
-      width: ${CONTENT_TABLET};
-      height: 15vh;
-      font-size: 0.9rem;
-    }
-
     .is-loading {
       width: ${CONTENT_TABLET};
       li {
         width: ${CONTENT_TABLET};
-      }
-
-      .chart-loading {
-        width: 80vw;
-        height: 27vh;
       }
     }
   }
@@ -132,27 +120,10 @@ export const Content = styled.div`
       height: 4vh;
     }
 
-    .total-numbers {
-      margin-top: 2vh;
-      width: ${CONTENT_DESKTOP};
-      height: 15vh;
-      font-size: 0.9rem;
-
-      ul {
-        flex-direction: column;
-        row-gap: 1vh;
-      }
-    }
-
     .is-loading {
       width: ${CONTENT_DESKTOP};
       li {
         width: ${CONTENT_DESKTOP};
-      }
-
-      .chart-loading {
-        width: 52vw;
-        height: 20vh;
       }
     }
   }

@@ -28,8 +28,8 @@ export const StyledLink = styled(Link)`
 `;
 
 export const TABLE_MOBILE = "76vw";
-export const TABLE_TABLET = "75vw";
-export const TABLE_DESKTOP = "75vw";
+export const TABLE_TABLET = "76vw";
+export const TABLE_DESKTOP = "54vw";
 
 export const Table = styled.div`
   width: ${TABLE_MOBILE};
@@ -53,51 +53,11 @@ export const Table = styled.div`
     color: var(--red-400);
   }
 
-  table {
-    width: 100%;
-  }
-
-  table,
-  td {
-    border-collapse: collapse;
-    border: 1px solid var(--fchisia-800);
-  }
-
-  thead {
-    display: table;
-    width: 100%;
-    background-color: var(--fchisia-800);
-    color: var(--white);
-  }
-
-  tbody {
-    display: block;
-    max-height: 26vh;
-    overflow-y: scroll;
-  }
-
-  th,
-  td {
-    width: 20%;
-    padding: 0.5rem;
-    word-break: break-all;
-  }
-
-  tr {
-    display: table;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  td {
-    text-align: center;
-    border-bottom: none;
-    border-left: none;
-  }
-
   @media (min-width: 740px) {
+    width: ${TABLE_TABLET};
   }
 
   @media (min-width: 1024px) {
+    width: ${TABLE_DESKTOP};
   }
 `;

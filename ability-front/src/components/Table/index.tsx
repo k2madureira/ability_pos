@@ -1,45 +1,68 @@
 'use client';
 import { MaterialReactTable } from 'material-react-table';
-import { FaEdit, FaList,FaTrash} from 'react-icons/fa';
 import * as S from "./styles";
 
 interface IProps {
   data: any;
   columns: any;
-  theadTh: string[];
+  matchesMedia: boolean;
+  type: 'student' | 'group';
 }
 
-export function Table({ data,columns,  theadTh }:IProps){
+export function Table({ data,columns,matchesMedia,type }:IProps){
+  const columnVisibility = {};
+  if (!matchesMedia) {
+    switch (type) {
+      case 'student':
+        Object.assign(columnVisibility, {
+          grupo: false,
+          instrumento: false
+        })
+        break;
 
-  console.log({ data, columns })
+      case 'group':
+        Object.assign(columnVisibility, {
+          estudantes: false,
+          iniciado: false
+        })
+        break;
+    }
+  }
+
   return (
       <S.Table tabIndex={0}>
-         <MaterialReactTable columns={columns} data={data} />
-          {/* <table>
-            <thead>
-                <tr key={'id'}>
-                {theadTh.map(str => 
-                  <th key={str}>{str}</th>  
-                )}
-                  <th>Opções</th>
-                </tr>
-              
-            </thead>
-            <tbody>
-            
-                <tr key={'id'}>
-                
-                  <td key='options' className='icon-options'>
-                    <FaEdit className='icon icon-edit'/>
-                    <FaList className='icon icon-list'/>
-                    <FaTrash className='icon icon-trash'/>
-                  </td>
-                </tr>
-              
-            </tbody>
-      
-          </table> */}
-        
+         <MaterialReactTable columns={columns} data={data}
+          initialState={{ columnVisibility }}
+          muiTableHeadCellProps={{
+            align: 'center',
+            sx: _ => ({
+              background: 'var(--fuchsia-930)',
+              color: 'var(--white)',
+              fontSize: '0.7rem',
+              fontWeight: '600'
+            })
+          }} 
+          muiTableBodyCellProps={{
+            align: 'center'
+          }}
+          muiTableContainerProps={({
+            table
+          }) => ({
+            sx: {
+              height: `calc(100% - ${table.refs.topToolbarRef.current?.offsetHeight}px - ${table.refs.bottomToolbarRef.current?.offsetHeight}px)`
+            }
+          })}
+          muiTablePaperProps={{
+            sx: {
+              height: '90%',
+              maxWidth: matchesMedia ? '100%': '75vw',
+               m: 'auto'
+            }
+          }}
+          
+          enableStickyHeader
+          // enableColumnResizing
+        />  
       </S.Table>
     
   );
