@@ -44,30 +44,32 @@ export const Content = styled.div`
     font-weight: 400;
   }
 
-  .total-numbers {
-    height: 10vh;
-    margin-top: 1vh;
-    ul {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      list-style: none;
-      background-color: var(--gray-050);
+  .icon-plus {
+    max-width: 30%;
+    color: var(--green-300);
 
-      li {
-        display: flex;
-        flex-direction: row;
-
-        width: 50%;
-        p {
-          padding: 0rem 0.5rem 0rem 0.3rem;
-        }
-        span {
-          font-weight: 700;
-        }
-      }
+    &:hover {
+      max-width: 35%;
+      font-weight: 800;
+      color: var(--green-200);
     }
+  }
+  .table-student-header {
+    display: flex;
+    flex-direction: row;
+    width: ${CONTENT_MOBILE};
+    justify-content: flex-start;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .table-group-header {
+    display: flex;
+    flex-direction: row;
+    width: ${CONTENT_MOBILE};
+    justify-content: flex-start;
+    align-items: baseline;
+    gap: 0.5rem;
   }
 
   .is-loading {

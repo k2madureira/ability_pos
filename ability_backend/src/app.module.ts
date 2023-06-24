@@ -8,6 +8,7 @@ import { InstrumentModule } from '@modules/instrument/instrument.module';
 import { ObservationModule } from '@modules/observation/observation.module';
 import { GroupModule } from '@modules/group/group.module';
 import { HomeModule } from '@modules/home/home.module';
+import { StateModule } from '@modules/state/state.module';
 import { PrismaModule } from '@shared/prisma/prisma.module';
 import { HelperModule } from '@shared/helper/helper.module';
 
@@ -24,6 +25,7 @@ import { HelperModule } from '@shared/helper/helper.module';
     ObservationModule,
     GroupModule,
     HomeModule,
+    StateModule,
     PrismaModule,
     HelperModule,
   ],

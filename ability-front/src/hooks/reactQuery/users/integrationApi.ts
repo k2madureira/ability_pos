@@ -13,11 +13,6 @@ const getStudents = async (): AxiosPromise<StudentsResponse> => {
   return findStudents;
 };
 
-const getStudents2 = async (): Promise<User[]> => {
-  const findStudents = await api.get<StudentsResponse>(`/students`);
-  return findStudents.data.items;
-};
-
 export const useFetchUser = () => {
   const query = useQuery({
     queryFn: getUser,
@@ -40,11 +35,4 @@ export function useFetchStudents() {
     ...query,
     data: query.data?.data.items,
   };
-}
-
-export function useFetchStudents2() {
-  return useQuery({
-    queryFn: getStudents2,
-    queryKey: ["get-students"],
-  });
 }

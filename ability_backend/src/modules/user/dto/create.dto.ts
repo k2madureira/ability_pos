@@ -50,7 +50,7 @@ export class UserRequest {
   @ApiProperty()
   @IsString()
   @IsOptional()
-  instrumentId?: string;
+  instrumentId?: string = null;
 
   @ApiProperty()
   @IsString()
