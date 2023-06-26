@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsIn,
   IsInt,
   IsOptional,
@@ -29,4 +30,8 @@ export class Query {
   @IsInt()
   @IsOptional()
   perPage?: number = 10;
+
+  @IsBoolean()
+  @IsOptional()
+  isLogged?: boolean = false;
 }

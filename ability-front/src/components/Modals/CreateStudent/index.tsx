@@ -19,10 +19,11 @@ import {
 import { useFetchStates } from '@/hooks/reactQuery/states/integrationApi';
 import { useMutateUser } from '@/hooks/reactQuery/users/userMutate';
 import { useFetchInstruments } from '@/hooks/reactQuery/instruments/integrationApi';
+import { UserResponse } from '@/hooks/dto/Iuser.dto';
 
 
 
-export function CreateStudentModal({ show, close }: { show: boolean, close: any }) {
+export function CreateStudentModal({ show, close, user }: { show: boolean, close: any, user: UserResponse | undefined }) {
   const { register, handleSubmit } = useForm();
   const {data, isLoading} = useFetchStates();
   const {data: dataInstruments, isLoading: isLoadingInstruments} = useFetchInstruments();

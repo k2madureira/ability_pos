@@ -13,7 +13,6 @@ async function getObservations({
   const queryParams =
     user?.profile.slug === "instructor" ? "instructorId" : "studentId";
 
-  await timeout(5000);
   const findObservations = await api.get<ObservationResponse>(
     `/observations?${queryParams}=${user?.id}&sortField=createdAt&sortOrder=desc&perPage=4`
   );

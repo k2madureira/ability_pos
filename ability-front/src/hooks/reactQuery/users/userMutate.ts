@@ -1,8 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { api, bearerToken, baseURL } from "@/services/api";
 import { AxiosPromise } from "axios";
-import { UserResponse, StudentsResponse, User } from "../../dto/Iuser.dto";
-import { headers } from "next/dist/client/components/headers";
 
 async function getProfile() {
   const res = await fetch(`${baseURL}/profiles?slug=student`, {

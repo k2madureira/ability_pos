@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@shared/prisma/prisma.service';
 import { HelperService } from '@shared/helper/helper.service';
 import { ListDto } from '@modules/group/dto';
-import { Group } from '@prisma/client';
+import { Group, User } from '@prisma/client';
 
 interface IGroupList extends Group {
   totalStudents?: number;
@@ -17,7 +17,10 @@ export class GetGroupsService {
     private helper: HelperService,
   ) {}
 
-  async execute(params: ListDto.Query): Promise<any> {
+  async execute(
+    params: ListDto.Query,
+    loggedUser: User,
+  ): Promise<any> {
     const totalItems = await this.prisma.group.count({
       where: {
         deletedAt: {
@@ -26,14 +29,28 @@ export class GetGroupsService {
       },
     });
 
-    const query = this.helper.queryBuild(params);
+    const { isLogged, ...queryStringParams } = params;
+    const query = this.helper.queryBuild(queryStringParams);
 
     const items: any = await this.prisma.group.findMany({
       ...query,
+      where: {
+        ...query.where,
+        groupUsers: isLogged
+          ? {
+              some: {
+                instructor: true,
+                userId: loggedUser.id,
+              },
+            }
+          : {},
+      },
       include: {
         _count: true,
         groupUsers: {
           select: {
+            instructor: true,
+            userId: true,
             user: {
               select: {
                 id: true,

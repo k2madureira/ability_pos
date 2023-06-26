@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -16,7 +17,11 @@ export class GetGroupsController {
   constructor(private getGroupsService: GetGroupsService) {}
 
   @Get()
-  async getGroups(@Query() query: ListDto.Query) {
-    return this.getGroupsService.execute(query);
+  async getGroups(
+    @Query() query: ListDto.Query,
+    @Req() req: any,
+  ) {
+    const { user } = req;
+    return this.getGroupsService.execute(query, user);
   }
 }

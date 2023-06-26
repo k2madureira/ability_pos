@@ -1,6 +1,6 @@
 'use client';
 import { useContext, useEffect, useState } from 'react';
-import { FaUserPlus, FaRegPlusSquare } from 'react-icons/fa';
+import { FaRegPlusSquare } from 'react-icons/fa';
 
 import { NavBar } from '@/components/NavBar';
 import { Table } from '@/components/Table';
@@ -23,9 +23,9 @@ import { Skeleton } from '@mui/material';
 export default function Students() {
 	const matchesMedia = useMediaQuery('(min-width: 740px)');
 	const [openStudentModal, setOpenStudentModal] = useState(false)
-	const { data, isLoading } = useFetchUser();
+	const { data: loggedUser, isLoading } = useFetchUser();
 	const { data: dataStudents, isLoading: isLoadingStudents } = useFetchStudents();
-	const {  data: dataGroups, isLoading: isLoadingGroups} = useFetchGroups();
+	const {  data: dataGroups, isLoading: isLoadingGroups} = useFetchGroups(loggedUser);
 	const { verifyAuthenticated } = useContext(AuthContext);
 	const {studentColumns,studentData} = useStudentTableData(isLoadingStudents,matchesMedia,dataStudents);
 	const {groupColumns,groupData} = useGroupTableData(isLoadingStudents,matchesMedia,dataGroups);
@@ -56,7 +56,7 @@ export default function Students() {
 			</S.Content>
 		</>}
 		{!isLoading && <>
-				<NavBar txt={data?.firstName as string} />
+				<NavBar txt={loggedUser?.firstName as string} />
 
 				<S.Content className="grid-content-area">
 					<div className='table-student-header'>
@@ -83,11 +83,11 @@ export default function Students() {
 						<Table key='group-table'  type='group' data={groupData}  columns={groupColumns} matchesMedia={matchesMedia}/>
 					</>}
 
-					<CreateStudentModal show={openStudentModal} close={() => setOpenStudentModal(false)} />
+					<CreateStudentModal show={openStudentModal} close={() => setOpenStudentModal(false)} user={loggedUser}/>
 
 					
 				</S.Content>
-				{matchesMedia ? <Observations {...data} /> : <span />}
+				{matchesMedia ? <Observations {...loggedUser} /> : <span />}
 				
 				<Footer />
 		</>	}

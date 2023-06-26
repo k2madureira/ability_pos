@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import { api } from "@/services/api";
-import { AxiosPromise } from "axios";
 import { StateResponse, State } from "../../dto/Istate.dto";
 
 function timeout(ms: number) {
