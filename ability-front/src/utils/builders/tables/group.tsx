@@ -1,5 +1,6 @@
 import { Group } from '@/hooks/dto/Igroup.dto';
 interface IGroup {
+	key: string;
 	nome: string;
 	estudantes: number;
 	iniciado: string;
@@ -13,6 +14,7 @@ export function useGroupTableData(isLoading: boolean, data: Group[]| undefined):
 		
 		groupData = data.map(group => (
 			{
+				key: group.id,
 				nome: group.name,
 				estudantes: group.totalStudents,
 				iniciado: group.createdAt,

@@ -7,7 +7,8 @@ import { GroupsTable } from '@/components/Table/groups';
 import { StudentsTable } from '@/components/Table/students';
 import { Observations } from '@/components/Observations';
 import { Footer } from '@/components/Footer';
-// import { CreateStudentModal } from '@/components/Modals/CreateStudent';
+
+import { CreateStudentModal } from '@/components/Modals/CreateStudent';
 
 
 import { useFetchStudents, useFetchUser } from '@/hooks/reactQuery/users/integrationApi';
@@ -19,7 +20,7 @@ import { useGroupTableData } from '@/utils/builders/tables/group';
 
 import { AuthContext } from '@/contexts/AuthContext';
 import * as S from './styles';
-import { Skeleton } from '@mui/material';
+import { Skeleton } from 'antd';
 
 export default function Students() {
 	const matchesMedia = useMediaQuery('(min-width: 740px)');
@@ -41,19 +42,16 @@ export default function Students() {
 	return (
 		<>
 		{isLoading && <>
-			<Skeleton variant="rectangular" width={40} height={70} />
 			<S.Content className="grid-content-area">
 				<div className='table-student-header'>
-					<Skeleton variant="text" width={40} height={20} />
-					<Skeleton variant="circular" width={20} height={10} />
+				<Skeleton avatar paragraph={{ rows: 4 }} />
 				</div>
-				<Skeleton variant="rectangular" height={100} />
+				<Skeleton />
 
 				<div className='table-student-header'>
-					<Skeleton variant="text" width={40} height={20} />
-					<Skeleton variant="circular" width={20} height={10} />
+				<Skeleton avatar paragraph={{ rows: 4 }} />
 				</div>
-				<Skeleton variant="rectangular" height={100} />
+			
 			</S.Content>
 		</>}
 		{!isLoading && <>
@@ -66,10 +64,11 @@ export default function Students() {
 					</div>
 					
 					{isLoadingStudents && <>
-						<Skeleton variant="rectangular" height={100} />
+						<Skeleton avatar paragraph={{ rows: 4 }} />
 					</>}
 					{!isLoadingStudents && <>
-						<StudentsTable key='students-table' data={studentData}   matchesMedia={matchesMedia} />
+						
+						<StudentsTable key='students-table' data={studentData} matchesMedia={matchesMedia} />
 					</>}
 					
 
@@ -78,13 +77,13 @@ export default function Students() {
 						<FaRegPlusSquare className='icon-plus'/>
 					</div>
 					{isLoadingGroups && <>
-						<Skeleton variant="rectangular" height={100} />
+						<Skeleton avatar paragraph={{ rows: 4 }} />
 					</>}
 					{!isLoadingGroups && <>
 						<GroupsTable key='group-table' data={groupData} matchesMedia={matchesMedia}/>
 					</>}
 
-					{/* <CreateStudentModal show={openStudentModal} close={() => setOpenStudentModal(false)} user={loggedUser}/> */}
+					<CreateStudentModal show={openStudentModal} close={() => setOpenStudentModal(false)} user={loggedUser}/>
 
 					
 				</S.Content>

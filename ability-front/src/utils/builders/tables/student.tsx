@@ -3,6 +3,7 @@ import { User } from '@/hooks/dto/Iuser.dto';
 
 
 interface IStudent {
+	key: string;
 	nome: string;
 	grupo: string;
 	instrumento: string;
@@ -16,6 +17,7 @@ export function useStudentTableData(isLoading: boolean, data: User[]| undefined)
 		
 		studentData = data.map(student => (
 			{
+				key: student.id,
 				nome: student.firstName,
 				grupo: student.userGroup[0].group.name,
 				instrumento: student.instrument.name,

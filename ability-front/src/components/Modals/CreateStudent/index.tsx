@@ -1,156 +1,124 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { 
-  Autocomplete, 
-  Button,  
-  Dialog, 
-  DialogActions, 
-  DialogContent, 
-  DialogTitle, 
-  FormControl, 
-  IconButton, 
-  InputAdornment, 
-  InputLabel, 
-  OutlinedInput, 
-  TextField 
-} from '@mui/material';
 
+import { UserResponse } from '@/hooks/dto/Iuser.dto';
+import { useFetchInstruments } from '@/hooks/reactQuery/instruments/integrationApi';
 import { useFetchStates } from '@/hooks/reactQuery/states/integrationApi';
 import { useMutateUser } from '@/hooks/reactQuery/users/userMutate';
-import { useFetchInstruments } from '@/hooks/reactQuery/instruments/integrationApi';
-import { UserResponse } from '@/hooks/dto/Iuser.dto';
+import { 
+  Modal, 
+  Button,
+  Form,
+  Input,
+  Select,
+} from 'antd';
 
-
-
-export function CreateStudentModal({ show, close, user }: { show: boolean, close: any, user: UserResponse | undefined }) {
-  const { register, handleSubmit } = useForm();
-  const {data, isLoading} = useFetchStates();
-  const {data: dataInstruments, isLoading: isLoadingInstruments} = useFetchInstruments();
-  const [showPassword, setShowPassword] = useState(false);
-  const { mutate, isSuccess } = useMutateUser();
-  
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-
+interface IData {
+  show: boolean, 
+  close: any, 
+  user: UserResponse | undefined
+}
+export function CreateStudentModal({ show, close, user }:IData) {
  
+  const { mutate, isSuccess } = useMutateUser();
+  const {data: dataStates, isLoading: isLoadingStates, isError:isErrorStates } = useFetchStates();
+  const {data: dataInstruments, isLoading: isLoadingInstruments, isError: isErrorInstruments} = useFetchInstruments();
+
   async function handleCreate(formData: any) {
     console.log(formData);
-
-    const selectedState = data?.find(state => state.name === formData.selectedState);
-    const selectedInstrument = dataInstruments?.find(instrument => instrument.name === formData.selectedInstrument);
-    console.log({ selectedState })
-    mutate({...formData, type: 'student', stateId: selectedState?.id, instrumentId: selectedInstrument?.id});
+    // mutate({...formData, type: 'student'});
 	}
 
-  if (isSuccess) {
-    close();
-  }
- 
-
-  return (
-  <Dialog
-    fullScreen={false}
-    open={show}
-    onClose={close}
-    aria-labelledby="responsive-dialog-title"
-  >
-    <DialogTitle id="responsive-dialog-title">
-      {"Cadastro estudante"}
-    </DialogTitle>
-    <DialogContent>
-      
-        <form onSubmit={handleSubmit(handleCreate)}>
-          <TextField {...register('firstName')} id="firstName" label="Nome" variant="outlined" fullWidth={true} color="secondary" size="small" margin="dense"/>
-          <TextField {...register('email')} type='email' id="email" label="Email" variant="outlined" fullWidth={true} color="secondary" size="small" margin="dense"/>
-          <FormControl  variant="outlined" fullWidth={true} color="secondary" size="small" margin="dense">
-          <InputLabel htmlFor="password">Senha</InputLabel>
-          <OutlinedInput
-           {...register('password')}
-            id="password"
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-          </FormControl>
-
-          <FormControl  variant="outlined" fullWidth={true} color="secondary" size="small" margin="dense">
-          <InputLabel htmlFor="password-confirmation">Confirmação de senha</InputLabel>
-          <OutlinedInput
-          {...register('password-confirmation')}
-            id="password-confirmation"
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-          </FormControl>
-          <Autocomplete
-            disablePortal
-            id="select-state"
-            renderOption={(props, option) => {
-              return (
-                <li {...props} key={option.id}>
-                  {option.label}
-                </li>
-              );
-            }}
-            options={!isLoading &&data ?data.map(state=> ({ label: state.name, id: state.id })) : []}
-            isOptionEqualToValue={(option, value) => option.id === value.id}
-            getOptionLabel={(state) => state.label }
-            sx={{ width: 300, marginTop: 1, marginBottom: 1 }}
-            renderInput={(params) => <TextField {...params} {...register('selectedState')} label="Estado" />}
-          />
-
-          <Autocomplete
-            disablePortal
-            id="select-instrument"
-            renderOption={(props, option) => {
-              return (
-                <li {...props} key={option.id}>
-                  {option.label}
-                </li>
-              );
-            }}
-            options={!isLoadingInstruments && dataInstruments ?dataInstruments?.map(instrument=> ({ label: instrument.name, id: instrument.id })) : []}
-            isOptionEqualToValue={(option, value) => option.id === value.id}
-            getOptionLabel={(instrument) => instrument.label }
-            sx={{ width: 300, marginTop: 1,  marginBottom: 1   }}
-            renderInput={(params) => <TextField {...params} {...register('selectedInstrument')} label="Instrumento" />}
-          />
-          <button type="submit">Salvar</button>
-        </form>
-      
-    </DialogContent>
-    <DialogActions>
-      <Button autoFocus onClick={close}>
-        Cancelar
+  return(
+    <Modal 
+    title="Cadastro estudante" 
+    open={show} 
+    onCancel={close}
+    footer={[
+      <Button type='primary' form="student-form" key="submit" htmlType="submit">
+          Cadastrar
       </Button>
-      
-    </DialogActions>
-  </Dialog>
+      ]}
+    >
+      <Form
+        id='student-form'
+        onFinish={handleCreate}
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 14 }}
+        layout="horizontal"
+        initialValues={{ size: 'small' }}
+        size={'small'}
+        style={{ maxWidth: 600 }}
+      >
+        <Form.Item 
+        name="firstName"
+        label="Nome"
+        rules={[{ required: true, message: 'Por favor, informo o nome' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="email"
+          label="E-mail"
+          rules={[
+            {
+              type: 'email',
+              message: 'E-mail inválido!',
+            },
+            {
+              required: true,
+              message: 'Por favor informe o E-mail!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Senha"
+          name="password"
+          rules={[{ required: true, message: 'Por favor, preencha o campo password!' }]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item
+          label="Confirmação senha"
+          name="passwordConfirmation"
+          rules={[{ required: true, message: 'Por favor, preencha o campo de confirmação!' }]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item
+          label="Estado"
+          name="stateId"
+          rules={[{ required: true, message: 'Por favor, selecione o estado!' }]}
+          >
+          <Select
+            placeholder="Selecione o estado"
+            style={{ width: 335 }}
+            loading={isLoadingStates}
+            options={!isErrorStates && dataStates ?dataStates?.map(instrument=> ({ label: instrument.name, value: instrument.id })) : []}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Instrumento"
+          name="instrumentId"
+          rules={[{ required: true, message: 'Por favor, selecione o instrumento!' }]}
+          >
+          <Select
+            placeholder="Selecione o instrumento"
+            style={{ width: 335 }}
+            loading={isLoadingInstruments}
+            options={!isErrorInstruments && dataInstruments ?dataInstruments?.map(instrument=> ({ label: instrument.name, value: instrument.id })) : []}
+          />
+        </Form.Item>
+       
+       
+      </Form>
+    </Modal>
   )
+  
 }
+
