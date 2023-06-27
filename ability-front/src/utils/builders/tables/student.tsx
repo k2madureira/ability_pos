@@ -1,7 +1,3 @@
-import { useMemo } from 'react'
-import { FaEdit, FaList,FaTrash} from 'react-icons/fa';
-import { type MRT_ColumnDef } from 'material-react-table';
-import { Box } from '@mui/material';
 
 import { User } from '@/hooks/dto/Iuser.dto';
 
@@ -13,7 +9,7 @@ interface IStudent {
 	options: string;
 }
 
-export function useStudentTableData(isLoading: boolean, matchesMedia: boolean, data: User[]| undefined): { studentData:any; studentColumns:any} {
+export function useStudentTableData(isLoading: boolean, data: User[]| undefined): { studentData:any} {
   
   let studentData: IStudent[] = [];
   if (!isLoading && data) {
@@ -28,43 +24,7 @@ export function useStudentTableData(isLoading: boolean, matchesMedia: boolean, d
 			));
 	}
 
-  const studentColumns = useMemo<MRT_ColumnDef<IStudent>[]>(() => [
-		{
-			accessorKey: 'nome',
-			header: 'Nome',
-			size: 20,
-		},
-		{
-			accessorKey: 'grupo',
-			header: 'Grupo',
-			size: 20,
-		},{
-			accessorKey: 'instrumento',
-			header: 'Instrumento',
-			size: 20,		},
-		{
-			accessorKey: 'options',
-			header: 'Opções',
-			size: 20,
-			Cell: ({ renderedCellValue, row }) => (
-				<Box
-					sx={{
-						display: 'flex',
-						alignItems: 'center',
-						gap: '1rem',
-					}}
-				>
-					
-					<FaEdit className='icon icon-edit'/>
-					<FaList className='icon icon-list'/>
-          <FaTrash className='icon icon-trash'/>
-					{/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-					{/* <span>{renderedCellValue}</span> */}
-				</Box>
-			),
-		},
-	],[]);
+ 
 
-
-  return { studentData, studentColumns}
+  return { studentData}
 }

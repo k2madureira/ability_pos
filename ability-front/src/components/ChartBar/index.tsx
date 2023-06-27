@@ -1,16 +1,18 @@
 'use client';
 import { Chart as ChartJs, registerables } from 'chart.js';
 import * as S from './styles';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface IProps {
 	data: number[];
 }
 
 export function ChartBar({ data }: IProps) {
+	const [initial, setInitial] = useState(false);
 	useEffect(() => {
 		ChartJs.register(...registerables);
 		const ctx = document.getElementById('chart-content') as any;
+	
 		new ChartJs(ctx, {
 			type: 'bar',
 			data: {
@@ -38,7 +40,7 @@ export function ChartBar({ data }: IProps) {
 				],
 			},
 		});
-	}, []);
+	}, [initial, setInitial]);
 
 	return (
 		<div className="grid-content-area">

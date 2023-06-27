@@ -46,6 +46,10 @@ export default function Dashboard() {
 							)
 							}
 						</ul>
+
+						<div className='is-loading'>
+							<div className='chart-loading'></div>
+						</div>
 					
 					</>}
 					{!isLoadingStatus && <>
@@ -68,19 +72,10 @@ export default function Dashboard() {
 							)
 							}
 						</ul>
+						<ChartBar data={dataStatus?.set as number[]} />
 					</>}
 					
 					</div>
-
-					{isLoadingStatus && <>
-					<div className='is-loading'>
-						<div className='chart-loading'></div>
-					</div>
-						
-					</>}
-					{!isLoadingStatus && <>
-						<ChartBar data={dataStatus?.set as number[]} />
-					</>}
 					
 				</S.Content>
 				{matchesMedia ? <Theory/> : <span />}

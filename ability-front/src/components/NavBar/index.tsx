@@ -14,7 +14,7 @@ export function NavBar({ isHome =false, txt }:IProps){
   function handleOpen (){ 
     setOpen(current => !current) 
   };
- 
+ console.log({ NAV: "FOI RECARREGADO "})
   return (
     <div className="grid-nav-area">
       <S.Nav tabIndex={0}>

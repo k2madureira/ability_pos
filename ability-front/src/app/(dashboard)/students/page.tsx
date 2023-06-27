@@ -3,10 +3,11 @@ import { useContext, useEffect, useState } from 'react';
 import { FaRegPlusSquare } from 'react-icons/fa';
 
 import { NavBar } from '@/components/NavBar';
-import { Table } from '@/components/Table';
+import { GroupsTable } from '@/components/Table/groups';
+import { StudentsTable } from '@/components/Table/students';
 import { Observations } from '@/components/Observations';
 import { Footer } from '@/components/Footer';
-import { CreateStudentModal } from '@/components/Modals/CreateStudent';
+// import { CreateStudentModal } from '@/components/Modals/CreateStudent';
 
 
 import { useFetchStudents, useFetchUser } from '@/hooks/reactQuery/users/integrationApi';
@@ -27,8 +28,8 @@ export default function Students() {
 	const { data: dataStudents, isLoading: isLoadingStudents } = useFetchStudents();
 	const {  data: dataGroups, isLoading: isLoadingGroups} = useFetchGroups(loggedUser);
 	const { verifyAuthenticated } = useContext(AuthContext);
-	const {studentColumns,studentData} = useStudentTableData(isLoadingStudents,matchesMedia,dataStudents);
-	const {groupColumns,groupData} = useGroupTableData(isLoadingStudents,matchesMedia,dataGroups);
+	const {studentData} = useStudentTableData(isLoadingStudents,dataStudents);
+	const {groupData} = useGroupTableData(isLoadingStudents,dataGroups);
 	
 	
 
@@ -68,7 +69,7 @@ export default function Students() {
 						<Skeleton variant="rectangular" height={100} />
 					</>}
 					{!isLoadingStudents && <>
-						<Table key='students-table' type='student' data={studentData}  columns={studentColumns} matchesMedia={matchesMedia} />
+						<StudentsTable key='students-table' data={studentData}   matchesMedia={matchesMedia} />
 					</>}
 					
 
@@ -80,10 +81,10 @@ export default function Students() {
 						<Skeleton variant="rectangular" height={100} />
 					</>}
 					{!isLoadingGroups && <>
-						<Table key='group-table'  type='group' data={groupData}  columns={groupColumns} matchesMedia={matchesMedia}/>
+						<GroupsTable key='group-table' data={groupData} matchesMedia={matchesMedia}/>
 					</>}
 
-					<CreateStudentModal show={openStudentModal} close={() => setOpenStudentModal(false)} user={loggedUser}/>
+					{/* <CreateStudentModal show={openStudentModal} close={() => setOpenStudentModal(false)} user={loggedUser}/> */}
 
 					
 				</S.Content>
