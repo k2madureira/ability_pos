@@ -15,7 +15,7 @@ export class CreateUserService {
   async execute(
     body: CreateDto.UserRequest,
   ): Promise<Partial<User>> {
-    const { password, methods, ...data } = body;
+    const { password, methods, groups, ...data } = body;
 
     const hash = await argon.hash(password);
 
@@ -35,6 +35,11 @@ export class CreateUserService {
         userMethod: {
           createMany: {
             data: methods || [],
+          },
+        },
+        userGroup: {
+          createMany: {
+            data: groups || [],
           },
         },
       },

@@ -8,7 +8,7 @@ import {
   Validate,
 } from 'class-validator';
 import { ONE_MAIN } from '@shared/helper/config/messages';
-import { Methods, manyMain } from './default.dto';
+import { Methods, Groups, manyMain } from './default.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserRequest {
@@ -80,4 +80,9 @@ export class UserRequest {
     message: ONE_MAIN,
   })
   methods?: Methods[];
+
+  @ApiProperty()
+  @IsArray()
+  @IsOptional()
+  groups?: Groups[];
 }

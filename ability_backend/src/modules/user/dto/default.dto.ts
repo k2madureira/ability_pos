@@ -35,6 +35,20 @@ export class Methods {
   lesson: string;
 }
 
+export class Groups {
+  @ApiProperty()
+  @IsString()
+  groupId: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  instructor = false;
+
+  @ApiProperty()
+  @IsBoolean()
+  main = false;
+}
+
 export class pathParameter {
   @ApiProperty()
   @IsUUID('all')
