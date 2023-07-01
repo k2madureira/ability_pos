@@ -10,8 +10,9 @@ async function getObservations({
   queryKey,
 }: any): AxiosPromise<ObservationResponse> {
   const [_, user] = queryKey;
-  const queryParams =
-    user?.profile.slug === "instructor" ? "instructorId" : "studentId";
+  const queryParams = ["admin", "instructor"].includes(user?.profile.slug)
+    ? "instructorId"
+    : "studentId";
 
   const findObservations = await api.get<ObservationResponse>(
     `/observations?${queryParams}=${user?.id}&sortField=createdAt&sortOrder=desc&perPage=4`

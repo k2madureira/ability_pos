@@ -156,20 +156,20 @@ model Instrument {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt Boolean  @default(false)
-  Method    Method[]
-  User      User[]
+  methods   Method[]
+  users     User[]
 
   @@map("instruments")
 }
 
 model Family {
-  id         String       @id @default(uuid())
-  name       String
-  slug       String       @unique
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  deletedAt  Boolean      @default(false)
-  Instrument Instrument[]
+  id          String       @id @default(uuid())
+  name        String
+  slug        String       @unique
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  deletedAt   Boolean      @default(false)
+  instruments Instrument[]
 
   @@map("families")
 }

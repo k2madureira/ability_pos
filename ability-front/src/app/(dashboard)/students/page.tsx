@@ -85,7 +85,7 @@ export default function Students() {
 						<GroupsTable key='group-table' data={groupData} matchesMedia={matchesMedia}/>
 					</>}
 
-					<CreateStudentModal show={openStudentModal} close={() => setOpenStudentModal(false)} user={loggedUser}/>
+					<CreateStudentModal show={openStudentModal} close={() => setOpenStudentModal(false)} user={loggedUser} matchesMedia={matchesMedia}/>
 					<CreateGroupModal show={openGroupModal} close={() => setOpenGroupModal(false)} user={loggedUser}/>
 
 					

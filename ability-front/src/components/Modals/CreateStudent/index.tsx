@@ -1,7 +1,7 @@
 
 import { UserResponse } from '@/hooks/dto/Iuser.dto';
 import { useFetchGroups } from '@/hooks/reactQuery/groups/integrationApi';
-import { useFetchInstruments } from '@/hooks/reactQuery/instruments/integrationApi';
+import { useFetchInstrument } from '@/hooks/reactQuery/instruments/integrationApi';
 import { useFetchStates } from '@/hooks/reactQuery/states/integrationApi';
 import { useMutateUser } from '@/hooks/reactQuery/users/userMutate';
 import * as regex from '@/utils/handlers/regex';
@@ -16,16 +16,17 @@ import {
 } from 'antd';
 
 interface IData {
-  show: boolean, 
-  close: any, 
-  user: UserResponse | undefined
+  show: boolean;
+  close: any;
+  user: UserResponse | undefined;
+  matchesMedia: boolean;
 }
-export function CreateStudentModal({ show, close, user }:IData) {
+export function CreateStudentModal({ show, close, user, matchesMedia }:IData) {
 
   const { mutate, isSuccess, isError, error, reset } = useMutateUser();
   const [messageApi, contextHolder] = message.useMessage();
   const {data: dataStates, isLoading: isLoadingStates, isError:isErrorStates } = useFetchStates();
-  const {data: dataInstruments, isLoading: isLoadingInstruments, isError: isErrorInstruments} = useFetchInstruments();
+  const {data: dataInstruments, isLoading: isLoadingInstruments, isError: isErrorInstruments} = useFetchInstrument();
   const {  data: dataGroups, isLoading: isLoadingGroups, isError: isErrorGroups} = useFetchGroups(user);
  
   async function handleCreate(formData: any) {
@@ -113,12 +114,12 @@ export function CreateStudentModal({ show, close, user }:IData) {
       <Form
         id='student-form'
         onFinish={handleCreate}
-        labelCol={{ span: 4 }}
+        labelCol={{ span: 7}}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
         initialValues={{ size: 'small' }}
         size={'small'}
-        style={{ maxWidth: 400 }}
+        style={{ maxWidth: matchesMedia? 500: 400 }}
       >
         <Divider />
         <Form.Item 

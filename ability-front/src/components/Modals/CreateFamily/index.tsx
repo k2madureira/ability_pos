@@ -7,28 +7,26 @@ import {
   Divider,
   message
 } from 'antd';
-import { IRequest } from '@/hooks/dto/Igroup.dto';
-import { UserResponse } from '@/hooks/dto/Iuser.dto';
-import { useMutateGroup } from '@/hooks/reactQuery/groups/userMutate';
+import { IRequest } from '@/hooks/dto/Ifamily.dto';
+import { useMutateFamily } from '@/hooks/reactQuery/families/userMutate';
 
 interface IData {
   show: boolean, 
-  close: any, 
-  user: UserResponse | undefined
+  close: any
 }
-export function CreateGroupModal({ show, close, user }:IData) {
+export function CreateFamilyModal({ show, close }:IData) {
 
-  const { mutate, isSuccess, isError, error, reset } = useMutateGroup();
+  const { mutate, isSuccess, isError, error, reset } = useMutateFamily();
   const [messageApi, contextHolder] = message.useMessage();
   
   async function handleCreate(formData: IRequest) {
-    mutate({...formData, users: [{ userId: user?.id as string, instructor: true }]});
+    mutate(formData);
 	}
 
   if(isSuccess){
     messageApi.open({
       type: 'success',
-      content: 'Grupo cadastrado com sucesso!',
+      content: 'Naipe cadastrado com sucesso!',
     });
     reset();
     close();
@@ -38,11 +36,11 @@ export function CreateGroupModal({ show, close, user }:IData) {
     let strErr = '';
     switch (err.response.data.statusCode) {
       case 409:
-        strErr = 'Grupo já cadastrado!'
+        strErr = 'Naipe já cadastrado!'
         break;
     
       default:
-        strErr = 'Erro ao cadastrar grupo'
+        strErr = 'Erro ao cadastrar naipe.'
         break;
     }
     messageApi.open({
@@ -54,7 +52,7 @@ export function CreateGroupModal({ show, close, user }:IData) {
 
   return(
     <Modal 
-    title="Cadastrar grupo musical" 
+    title="Cadastrar Naipe" 
     open={show} 
     onCancel={close}
     destroyOnClose
