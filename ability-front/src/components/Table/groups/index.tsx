@@ -55,7 +55,13 @@ export function GroupsTable({ data,matchesMedia }:IProps){
 
   return (
       <S.Table tabIndex={0}>
-         <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 240 }} />
+         <Table 
+          columns={columns} 
+          dataSource={data} 
+          pagination={{ pageSize: matchesMedia? 10:3 }} 
+          scroll={{ y: matchesMedia? 150: 180 }} 
+          rowKey="uid"
+          />
       </S.Table>
     
   );

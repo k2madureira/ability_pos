@@ -1,10 +1,13 @@
-export interface Group {
+export interface IGroup {
   id: string;
   name: string;
   slug: string;
   createdAt: string;
   updatedAt: string;
   deletedAt: boolean;
+}
+
+export interface GroupList extends IGroup {
   groupUsers: {
     user: {
       id: string;
@@ -16,7 +19,15 @@ export interface Group {
 }
 
 export interface GroupResponse {
-  items: Group[];
+  items: GroupList[];
   totalItems: number;
   totalPage: number;
+}
+
+export interface IRequest {
+  name: string;
+  users?: {
+    userId: string;
+    instructor: boolean;
+  }[];
 }

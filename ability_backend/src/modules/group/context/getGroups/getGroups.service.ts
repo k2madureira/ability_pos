@@ -21,15 +21,25 @@ export class GetGroupsService {
     params: ListDto.Query,
     loggedUser: User,
   ): Promise<any> {
-    const totalItems = await this.prisma.group.count({
-      where: {
-        deletedAt: {
-          not: true,
+    const { isLogged, ...queryStringParams } = params;
+    const findGroups = await this.prisma.userGroup.findMany(
+      {
+        where: isLogged
+          ? {
+              instructor: true,
+              userId: loggedUser.id,
+            }
+          : {},
+        select: {
+          group: true,
         },
       },
-    });
+    );
 
-    const { isLogged, ...queryStringParams } = params;
+    const selectedGroupIds = findGroups.map(
+      (data) => data.group.id,
+    );
+
     const query = this.helper.queryBuild(queryStringParams);
 
     const items: any = await this.prisma.group.findMany({
@@ -39,8 +49,7 @@ export class GetGroupsService {
         groupUsers: isLogged
           ? {
               some: {
-                instructor: true,
-                userId: loggedUser.id,
+                groupId: { in: selectedGroupIds },
               },
             }
           : {},
@@ -64,7 +73,7 @@ export class GetGroupsService {
     });
 
     const groups: IGroupList = items.map((group) => {
-      const totalStudents = group._count.groupUsers;
+      const totalStudents = group._count.groupUsers - 1;
       delete group._count;
       return {
         ...group,
@@ -72,6 +81,7 @@ export class GetGroupsService {
       };
     });
 
+    const totalItems = selectedGroupIds.length;
     return {
       totalItems,
       totalPage: Math.ceil(totalItems / params.perPage),

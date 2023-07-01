@@ -16,7 +16,6 @@ async function getProfile() {
 }
 
 const postData = async (data: any): AxiosPromise<any> => {
-  console.log({ FNC: data });
   if (data.type === "student") {
     const findProfile = await getProfile();
     data["profileId"] = findProfile.items[0].id;

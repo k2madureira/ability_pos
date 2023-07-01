@@ -91,10 +91,20 @@ export function CreateStudentModal({ show, close, user }:IData) {
     onCancel={close}
     destroyOnClose
     footer={[
-      <Button key="cancel" onClick={close}>
+      <Button
+        style={{ color: "var(--white)", backgroundColor: "var(--red-600)" }} 
+        key="cancel" 
+        onClick={close}
+      >
             Cancelar
       </Button>,
-      <Button type='primary' form="student-form" key="submit" htmlType="submit">
+      <Button 
+        style={{ color: "var(--white)", backgroundColor: "var(--green-300)" }} 
+        type='primary' 
+        form="student-form" 
+        key="submit" 
+        htmlType="submit"
+        >
           Cadastrar
       </Button>
       ]}
@@ -108,13 +118,13 @@ export function CreateStudentModal({ show, close, user }:IData) {
         layout="horizontal"
         initialValues={{ size: 'small' }}
         size={'small'}
-        style={{ maxWidth: 600 }}
+        style={{ maxWidth: 400 }}
       >
         <Divider />
         <Form.Item 
         name="firstName"
         label="Nome"
-        rules={[{ required: true, message: 'Por favor, informo o nome' }]}
+        rules={[{ required: true, message: 'Por favor, informe o nome' }]}
         >
           <Input />
         </Form.Item>

@@ -9,6 +9,7 @@ import { Observations } from '@/components/Observations';
 import { Footer } from '@/components/Footer';
 
 import { CreateStudentModal } from '@/components/Modals/CreateStudent';
+import { CreateGroupModal } from '@/components/Modals/CreateGroup';
 
 
 import { useFetchStudents, useFetchUser } from '@/hooks/reactQuery/users/integrationApi';
@@ -24,7 +25,8 @@ import { Skeleton } from 'antd';
 
 export default function Students() {
 	const matchesMedia = useMediaQuery('(min-width: 740px)');
-	const [openStudentModal, setOpenStudentModal] = useState(false)
+	const [openStudentModal, setOpenStudentModal] = useState(false);
+	const [openGroupModal, setOpenGroupModal] = useState(false);
 	const { data: loggedUser, isLoading } = useFetchUser();
 	const { data: dataStudents, isLoading: isLoadingStudents } = useFetchStudents();
 	const {  data: dataGroups, isLoading: isLoadingGroups} = useFetchGroups(loggedUser);
@@ -74,7 +76,7 @@ export default function Students() {
 
 					<div className='table-group-header'>
 						<h1>Grupos</h1>
-						<FaRegPlusSquare className='icon-plus'/>
+						<FaRegPlusSquare className='icon-plus'onClick={()=> setOpenGroupModal(true)}/>
 					</div>
 					{isLoadingGroups && <>
 						<Skeleton avatar paragraph={{ rows: 4 }} />
@@ -84,6 +86,7 @@ export default function Students() {
 					</>}
 
 					<CreateStudentModal show={openStudentModal} close={() => setOpenStudentModal(false)} user={loggedUser}/>
+					<CreateGroupModal show={openGroupModal} close={() => setOpenGroupModal(false)} user={loggedUser}/>
 
 					
 				</S.Content>

@@ -36,6 +36,11 @@ export const Table = styled.div`
   height: 34vh;
   overflow: auto;
 
+  .ant-table-thead .ant-table-cell {
+    background-color: var(--fchisia-800) !important;
+    color: var(--white);
+  }
+
   .icon {
     padding: 0.1rem;
     margin-left: 0.5rem;

@@ -1,10 +1,10 @@
 'use client';
-
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { FaEdit, FaList, FaTrash } from 'react-icons/fa';
 
 import * as S from "./styles";
+
 
 interface IProps {
   data: any;
@@ -19,6 +19,7 @@ interface IStudent {
 	instrumento: string;
   options: string;
 }
+
 
 export function StudentsTable({ data,matchesMedia }:IProps){
 
@@ -54,11 +55,15 @@ export function StudentsTable({ data,matchesMedia }:IProps){
     columns = columns.filter(columns => !['Grupo','Instrumento'].includes(`${columns.title}`));
   }
   
-
- 
   return (
       <S.Table tabIndex={0}>
-        <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 240 }} />
+        <Table 
+          columns={columns} 
+          dataSource={data} 
+          pagination={{ pageSize: matchesMedia? 10:3 }} 
+          scroll={{ y: matchesMedia? 150: 180 }} 
+          rowKey="uid"
+        />
       </S.Table>
     
   );
