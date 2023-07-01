@@ -11,6 +11,49 @@ export const Icon = styled(Image)`
 export const THEORY_DESKTOP = "52vw";
 export const THEORY_TABLET = "38vw";
 
+export const AsideTheory = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 23vw;
+  height: 58vh;
+  margin-left: 2vw;
+  margin-top: 2vh;
+  background-color: var(--fuchsia-950);
+  color: var(--white);
+
+  border-radius: 1rem 1rem;
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-top: 3vh;
+    margin-bottom: 1vh;
+  }
+
+  p {
+    width: 23vw;
+    height: 50vh;
+    margin-top: 2vh;
+    padding-left: 2vw;
+    margin-bottom: 1.5vh;
+    margin-top: 2vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    text-align: justify;
+    overflow-y: auto;
+  }
+
+  .instrument-image-container {
+    width: 23vw;
+    height: 20vh;
+    .instrument-image {
+      position: relative !important;
+    }
+  }
+`;
+
 export const Theory = styled.div`
   display: flex;
   flex-direction: column;

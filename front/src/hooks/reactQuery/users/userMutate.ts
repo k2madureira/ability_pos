@@ -15,6 +15,11 @@ async function getProfile() {
   return res.json();
 }
 
+const signUp = async (body: any): Promise<any> => {
+  console.log({ body });
+  return api.post<any>(`/auth/sign-up`, body);
+};
+
 const postData = async (data: any): AxiosPromise<any> => {
   if (data.type === "student") {
     const findProfile = await getProfile();
@@ -24,7 +29,7 @@ const postData = async (data: any): AxiosPromise<any> => {
   delete data.selectedState;
   delete data.selectedInstrument;
   delete data["password-confirmation"];
-  return await api.post<any>(`/users`, data);
+  return api.post<any>(`/users`, data);
 };
 
 export function useMutateUser() {
@@ -34,6 +39,15 @@ export function useMutateUser() {
     onSuccess: () => {
       queryClient.invalidateQueries(["get-students"]);
     },
+  });
+
+  return mutate;
+}
+
+export function useMutateUserSignUp() {
+  const mutate = useMutation({
+    mutationFn: signUp,
+    onSuccess: () => {},
   });
 
   return mutate;

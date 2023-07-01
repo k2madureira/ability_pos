@@ -22,9 +22,11 @@ import { useFamilyTableData } from '@/utils/builders/tables/families';
 import { AuthContext } from '@/contexts/AuthContext';
 import * as S from './styles';
 import { Skeleton } from 'antd';
+import { Theory } from '@/components/Theory';
 
 export default function Instrument() {
 	const matchesMedia = useMediaQuery('(min-width: 740px)');
+	const matchesSideMedia = useMediaQuery('(min-width: 1024px)');
 	const [openInstrumentModal, setOpenInstrumentModal] = useState(false);
 	const [openFamilyModal, setOpenFamilyModal] = useState(false);
 	const { data: loggedUser, isLoading } = useFetchUser();
@@ -90,7 +92,7 @@ export default function Instrument() {
 
 					
 				</S.Content>
-				{matchesMedia ? <Observations {...loggedUser} /> : <span />}
+				{matchesSideMedia ? <Theory instrumentDash={true} user={loggedUser}/> : <span />}
 				
 				<Footer />
 		</>	}

@@ -56,6 +56,7 @@ export class SignUpService {
         firstName: dto.firstName,
         stateId: dto.stateId,
         profileId: findProfile.id,
+        instrumentId: null,
       },
       select: { ...DefaultDto.userSchema },
     });

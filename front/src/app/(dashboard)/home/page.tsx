@@ -78,7 +78,7 @@ export default function Dashboard() {
 					</div>
 					
 				</S.Content>
-				{matchesMedia ? <Theory/> : <span />}
+				{matchesMedia ? <Theory instrumentDash={false}/> : <span />}
 
 
 				

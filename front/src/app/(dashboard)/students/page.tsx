@@ -25,6 +25,8 @@ import { Skeleton } from 'antd';
 
 export default function Students() {
 	const matchesMedia = useMediaQuery('(min-width: 740px)');
+	const matchesSideMedia = useMediaQuery('(min-width: 1024px)');
+
 	const [openStudentModal, setOpenStudentModal] = useState(false);
 	const [openGroupModal, setOpenGroupModal] = useState(false);
 	const { data: loggedUser, isLoading } = useFetchUser();
@@ -90,7 +92,7 @@ export default function Students() {
 
 					
 				</S.Content>
-				{matchesMedia ? <Observations {...loggedUser} /> : <span />}
+				{matchesSideMedia ? <Observations {...loggedUser} /> : <span />}
 				
 				<Footer />
 		</>	}
