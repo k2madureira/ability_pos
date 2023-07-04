@@ -10,30 +10,25 @@ interface IProps {
   matchesMedia: boolean;
 }
 
-interface IInstrument {
+interface IMethod {
   key: React.Key;
-	name: string;
-	family: number;
-	methods: string;
+	title: string;
+	instrument: string;
 	options: string;
 }
 
-export function InstrumentsTable({ data,matchesMedia }:IProps){
+export function MethodsTable({ data,matchesMedia }:IProps){
 
-  let columns: ColumnsType<IInstrument> = [
+  let columns: ColumnsType<IMethod> = [
     {
-      title: 'Nome',
-      dataIndex: 'name',
+      title: 'Título',
+      dataIndex: 'title',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => a.name.length - b.name.length,
+      sorter: (a, b) => a.title.length - b.title.length,
     },
     {
-      title: 'Família',
-      dataIndex: 'family',
-    },
-    {
-      title: 'Métodos',
-      dataIndex: 'methods',
+      title: 'Instrumento',
+      dataIndex: 'instrument',
     },
     {
       title: 'Opções',
@@ -49,7 +44,7 @@ export function InstrumentsTable({ data,matchesMedia }:IProps){
   ];
 
   if (!matchesMedia) {
-    columns = columns.filter(columns => !['Família','Métodos'].includes(`${columns.title}`));
+    columns = columns.filter(columns => !['Instrumento'].includes(`${columns.title}`));
   }
   
 
