@@ -7,13 +7,11 @@ function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 async function getStatus(): AxiosPromise<StatusResponse> {
-  await timeout(5000);
   const findStatus = await api.get<StatusResponse>(`/home`);
   return findStatus;
 }
 
 async function getSTheory(): AxiosPromise<TheoryResponse> {
-  await timeout(5000);
   const findTheory = await api.get<TheoryResponse>(`/theory`);
   return findTheory;
 }

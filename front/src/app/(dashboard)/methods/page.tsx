@@ -3,36 +3,31 @@ import { useContext, useEffect, useState } from 'react';
 import { FaRegPlusSquare } from 'react-icons/fa';
 
 import { NavBar } from '@/components/NavBar';
-import { GroupsTable } from '@/components/Table/groups';
-import { StudentsTable } from '@/components/Table/students';
+import { MethodsTable } from '@/components/Table/methods';
 import { Observations } from '@/components/Observations';
 import { Footer } from '@/components/Footer';
 
-import { CreateStudentModal } from '@/components/Modals/CreateStudent';
-import { CreateGroupModal } from '@/components/Modals/CreateGroup';
+import { CreateMethodModal } from '@/components/Modals/CreateMethod';
 
-
-import { useFetchStudents, useFetchUser } from '@/hooks/reactQuery/users/integrationApi';
-import { useFetchGroups } from '@/hooks/reactQuery/groups/integrationApi';
+import {  useFetchUser } from '@/hooks/reactQuery/users/integrationApi';
+import { useFetchMethod } from '@/hooks/reactQuery/methods/integrationApi';
 import { useMediaQuery } from '@/hooks/custom/useMediaQuery';
 
-import { useStudentTableData } from '@/utils/builders/tables/student';
-import { useGroupTableData } from '@/utils/builders/tables/group';
+import { useMethodTableData } from '@/utils/builders/tables/methods';
 
 import { AuthContext } from '@/contexts/AuthContext';
 import * as S from './styles';
 import { Skeleton } from 'antd';
 
+
 export default function Students() {
 	const matchesMedia = useMediaQuery('(min-width: 740px)');
 	const [openStudentModal, setOpenStudentModal] = useState(false);
-	const [openGroupModal, setOpenGroupModal] = useState(false);
 	const { data: loggedUser, isLoading } = useFetchUser();
-	const { data: dataStudents, isLoading: isLoadingStudents } = useFetchStudents();
-	const {  data: dataGroups, isLoading: isLoadingGroups} = useFetchGroups(loggedUser);
+	const { data: dataMethods, isLoading: isLoadingMethods } = useFetchMethod();
 	const { verifyAuthenticated } = useContext(AuthContext);
-	const {studentData} = useStudentTableData(isLoadingStudents,dataStudents);
-	const {groupData} = useGroupTableData(isLoadingStudents,dataGroups);
+	const {methodData} = useMethodTableData(isLoadingMethods,dataMethods);
+	
 	
 	
 
@@ -61,32 +56,21 @@ export default function Students() {
 
 				<S.Content className="grid-content-area">
 					<div className='table-student-header'>
-						<h1>Estudantes</h1>
+						<h1>Métodos</h1>
 						<FaRegPlusSquare className='icon-plus' onClick={()=> setOpenStudentModal(true)} />
 					</div>
 					
-					{isLoadingStudents && <>
+					{isLoadingMethods && <>
 						<Skeleton avatar paragraph={{ rows: 4 }} />
 					</>}
-					{!isLoadingStudents && <>
+					{!isLoadingMethods && <>
 						
-						<StudentsTable key='students-table' data={studentData} matchesMedia={matchesMedia} />
+						<MethodsTable key='students-table' data={methodData} matchesMedia={matchesMedia} />
 					</>}
 					
 
-					<div className='table-group-header'>
-						<h1>Grupos</h1>
-						<FaRegPlusSquare className='icon-plus'onClick={()=> setOpenGroupModal(true)}/>
-					</div>
-					{isLoadingGroups && <>
-						<Skeleton avatar paragraph={{ rows: 4 }} />
-					</>}
-					{!isLoadingGroups && <>
-						<GroupsTable key='group-table' data={groupData} matchesMedia={matchesMedia}/>
-					</>}
-
-					<CreateStudentModal show={openStudentModal} close={() => setOpenStudentModal(false)} user={loggedUser} matchesMedia={matchesMedia}/>
-					<CreateGroupModal show={openGroupModal} close={() => setOpenGroupModal(false)} user={loggedUser}/>
+					<CreateMethodModal show={openStudentModal} close={() => setOpenStudentModal(false)} matchesMedia={matchesMedia}/>
+				
 
 					
 				</S.Content>
