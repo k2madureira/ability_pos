@@ -1,0 +1,73 @@
+# compiled output
+/dist
+/ability-front/node_modules
+/ability-backend/node_modules
+/ability-backend/dist
+#env
+.env
+.env.test
+# Logs
+logs
+*.log
+npm-debug.log* 
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+
+# dependencies
+/ability-front/.pnp
+/ability-front/.pnp.js
+
+# testing
+/ability-front/coverage
+
+# next.js
+/ability-front/.next/
+/ability-front/out/
+
+# production
+/ability-front/build
+
+# misc
+.DS_Store
+/ability-front/*.pem
+
+# debug
+/ability-front/npm-debug.log*
+/ability-front/yarn-debug.log*
+/ability-front/yarn-error.log*
+
+# local env files
+/ability-front/.env*.local
+
+# vercel
+/ability-front/.vercel
+
+# typescript
+/ability-front/*.tsbuildinfo
+/ability-front/next-env.d.ts
