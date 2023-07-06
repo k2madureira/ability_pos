@@ -9,6 +9,7 @@ WORKDIR /home/node/app
 COPY --chown=node:node . .
 
 RUN ls
+RUN cd backend/
 RUN npm install
 RUN npm run prisma:dev:generate
 RUN npm run build
