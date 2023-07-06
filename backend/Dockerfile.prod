@@ -10,10 +10,10 @@ COPY --chown=node:node . .
 
 RUN ls
 RUN cd backend/
-RUN ls
-RUN npm install
-RUN npm run prisma:dev:generate
-RUN npm run build
+RUN cd backend/ & ls
+RUN cd backend/ & npm install
+RUN cd backend/ & npm run prisma:dev:generate
+RUN cd backend/ & npm run build
 
 EXPOSE 5000
 
