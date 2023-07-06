@@ -9,11 +9,9 @@ WORKDIR /home/node/app
 COPY --chown=node:node . .
 
 RUN ls
-RUN cd backend/
-RUN cd backend/ & ls
-RUN cd backend/ & npm install
-RUN cd backend/ & npm run prisma:dev:generate
-RUN cd backend/ & npm run build
+RUN npm install
+RUN npm run prisma:dev:generate
+RUN npm run build
 
 EXPOSE 5000
 
