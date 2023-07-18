@@ -21,7 +21,7 @@ export default function Dashboard() {
 
 	useEffect(() => {
 		verifyAuthenticated();
-	}, []);
+	}, [verifyAuthenticated]);
 
 
 	return (
@@ -31,7 +31,7 @@ export default function Dashboard() {
 				<NavBar isHome txt={data?.firstName as string} />
 
 				<S.Content className="grid-content-area">
-					<h1>General Information</h1>
+					<h1>Informações gerais</h1>
 					<div className="total-numbers">
 					{isLoadingStatus && <>
 						<ul className='is-loading'>

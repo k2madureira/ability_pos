@@ -1,6 +1,9 @@
 'use client';
 import { createContext, useEffect, useState } from 'react';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
+import {  
+  message
+} from 'antd';
 import { recoverUserInformation, signInRequest } from '@/services/auth';
 import { redirect, useRouter } from 'next/navigation';
 import { api } from '@/services/api';
@@ -42,6 +45,7 @@ export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({ children }: any) {
 	const router = useRouter();
+	
 	const [user, setUser] = useState<User | null>(null);
 	const isAuthenticated = !!user;
 
@@ -56,6 +60,7 @@ export function AuthProvider({ children }: any) {
 	}, []);
 
 	async function signIn(data: SignInRequest) {
+
 		const { access_token: token, user } = await signInRequest(data);
 
 		setCookie(undefined, 'ability-token', token, {
@@ -80,10 +85,13 @@ export function AuthProvider({ children }: any) {
 			redirect('/signin')
 		}
 	}
+
+	
 	
 
 	return (
 		<AuthContext.Provider value={{ user, isAuthenticated,verifyAuthenticated, signIn, signOut }}>
+			
 			{children}
 		</AuthContext.Provider>
 	);

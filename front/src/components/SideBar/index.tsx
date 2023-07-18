@@ -4,6 +4,7 @@ import * as S from "./styles";
 
 
 export function SideBar(){
+  const pt = ['Início','Estudantes','Métodos','Instrumentos'];
   return (
     <>
       <S.Side tabIndex={0}>
@@ -38,7 +39,7 @@ export function SideBar(){
                         />
                       </div>
                       <div className="li-span">
-                        <span>{item}</span>
+                        <span>{pt[index]}</span>
                       </div>
                     </Link>
                     

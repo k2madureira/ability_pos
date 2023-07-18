@@ -40,13 +40,13 @@ export function ChartBar({ data }: IProps) {
 				],
 			},
 		});
-	}, [initial, setInitial]);
+	}, [initial, setInitial, data]);
 
 	return (
 		<div className="grid-content-area">
 			<S.Chart>
 				<div className="chart-content">
-					<canvas id="chart-content"></canvas>
+					<canvas id="chart-content" key={Math.floor(Math.random() * 100)}></canvas>
 				</div>
 			</S.Chart>
 		</div>

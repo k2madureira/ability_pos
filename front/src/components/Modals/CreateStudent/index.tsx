@@ -76,15 +76,15 @@ export function CreateStudentModal({ show, close, user, matchesMedia }:IData) {
   }
 
 
-  async function checkPassword(type:regex.checkRegex, value: string) {
-    return new Promise((resolve, reject) => {
-      if (regex[type].test(value)) {
-        resolve('');
-      } else {
-        reject(regex.regexErrors[type])
-      }
-    })
-  }
+  // async function checkPassword(type:regex.checkRegex, value: string) {
+  //   return new Promise((resolve, reject) => {
+  //     if (regex[type].test(value)) {
+  //       resolve('');
+  //     } else {
+  //       reject(regex.regexErrors[type])
+  //     }
+  //   })
+  // }
   return(
     <Modal 
     title="Cadastro estudante" 
@@ -147,7 +147,7 @@ export function CreateStudentModal({ show, close, user, matchesMedia }:IData) {
           <Input />
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           label="Senha"
           name="password"
           hasFeedback
@@ -228,7 +228,7 @@ export function CreateStudentModal({ show, close, user, matchesMedia }:IData) {
           ]}
         >
           <Input.Password />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item
           label="Estado"

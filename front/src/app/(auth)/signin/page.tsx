@@ -1,11 +1,15 @@
 'use client';
 import React, { useContext, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import {  
+  Button,
+  Form,
+  Input,
+	message
+} from 'antd';
 import {
 	Container,
 	Content,
 	SideBar,
-	Input,
 	LogoImage,
 	WomanImage,
 } from './styles';
@@ -13,10 +17,13 @@ import Link from 'next/link';
 import { AuthContext } from '@/contexts/AuthContext';
 import { parseCookies } from 'nookies';
 import { redirect } from 'next/navigation';
+import { useMediaQuery } from '@/hooks/custom/useMediaQuery';
 
 export interface ISignInProps {}
 const SignIn: React.FC<ISignInProps> = () => {
-	const { register, handleSubmit } = useForm();
+	const matchesMedia = useMediaQuery('(min-width: 740px)');
+	const matchesMedia1024 = useMediaQuery('(min-width: 1024px)');
+	const [messageApi, contextHolder] = message.useMessage();
 	const { signIn } = useContext(AuthContext);
 
 	useEffect(() => {
@@ -29,7 +36,29 @@ const SignIn: React.FC<ISignInProps> = () => {
 	}, []);
 
 	async function handleSignIn(data: any) {
-		await signIn(data);
+		try {
+			await signIn(data);
+		} catch (error) {
+			if(error) {
+
+				const err = error as any;
+				let strErr = '';
+				switch (err.response.data.statusCode) {
+					case 403:
+						strErr = 'E-mail ou password incorretos!'
+						break;
+				
+					default:
+						strErr = 'Erro ao realizar login. tente mais tarde!'
+						break;
+				}
+				messageApi.open({
+					type: 'error',
+					content: strErr,
+				});
+			}
+		}
+		
 	}
 
 	return (
@@ -48,9 +77,9 @@ const SignIn: React.FC<ISignInProps> = () => {
 				</header>
 				<main>
 					<h3>
-						Start your <br /> musical journey
+						Comece a sua <br /> jornada musical
 					</h3>
-					<p>Discover the best site for monitoring musical studies!</p>
+					<p>O melhor site para acompanhamento do estudo musical!</p>
 				</main>
 				<footer>
 					<WomanImage
@@ -64,41 +93,78 @@ const SignIn: React.FC<ISignInProps> = () => {
 				</footer>
 			</SideBar>
 			<Content>
+				{contextHolder}
 				<div className="ContentContainer">
 					<div className="ContentTitle">
-						<h1>Welcome</h1>
+						<h1>Bem vindo (a)</h1>
 					</div>
 
 					<main>
 						<p>
-							Don&apos;t have a account? <Link href="/signup">Register</Link>
+							Não possui uma conta? <Link href="/signup">Cadastre-se</Link>
 						</p>
-						<form onSubmit={handleSubmit(handleSignIn)}>
-							<Input>
-								<input
-									{...register('email')}
-									id="signEmail"
-									name="email"
-									required
+						<Form
+							id='signin-form'
+							className='signin-form'
+							onFinish={handleSignIn}
+							labelCol={{ span: 7}}
+							wrapperCol={{ span: 14 }}
+							layout="horizontal"
+							initialValues={{ size: 'small' }}
+							size={'small'}
+							style={{ maxWidth: matchesMedia? 600: 400 }}
+						>
+							<Form.Item 
+								name="email"
+								rules={[
+									{
+										type: 'email',
+										message: 'E-mail inválido!',
+									},
+									{
+										required: true,
+										message: 'Por favor informe o E-mail!',
+									},
+								]}
+							>
+								<Input placeholder="E-mail" 
+									style={{
+										width: matchesMedia1024? "20rem" :"21rem"
+									}}
 								/>
-								<label htmlFor="signEmail">E-mail</label>
-							</Input>
-
-							<Input>
-								<input
-									{...register('password')}
-									type="password"
-									id="signPassword"
-									name="password"
-									required
-								/>
-								<label htmlFor="signPassword">Password</label>
-							</Input>
-
-							<button type="submit">Sign In</button>
-						</form>
+							</Form.Item>
+							<Form.Item 
+								name="password"
+								rules={[
+									{
+										required: true,
+										message: 'Por favor informe a senha!',
+									},
+								]}
+							>
+								<Input.Password placeholder="Password" style={{
+										width: matchesMedia1024? "20rem" :"21rem"
+									}}/>
+							</Form.Item>
+			
+							<Button 
+								style={{ 
+									color: "var(--white)", 
+									backgroundColor: "var(--fuchsia-950)",
+									height: "2rem"
+									// marginLeft: "6vw"
+								}} 
+								type='primary' 
+								form="signin-form" 
+								key="submit" 
+								htmlType="submit"
+								>
+									Sign-in
+							</Button>
+						
+						</Form>
 						<div className="MainFooter">
-							<a href="">Forgot password?</a>
+							<Link href="/forgot">Esqueceu a senha?</Link>
 							<div className="Line">
 								<hr />
 							</div>

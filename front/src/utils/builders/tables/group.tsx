@@ -1,4 +1,4 @@
-import { Group } from '@/hooks/dto/Igroup.dto';
+import { GroupList } from '@/hooks/dto/Igroup.dto';
 interface IGroup {
 	key: string;
 	nome: string;
@@ -7,7 +7,7 @@ interface IGroup {
 	options: string;
 }
 
-export function useGroupTableData(isLoading: boolean, data: Group[]| undefined): { groupData:any} {
+export function useGroupTableData(isLoading: boolean, data: GroupList[]| undefined): { groupData:any} {
   
   let groupData: IGroup[] = [];
   if (!isLoading && data) {

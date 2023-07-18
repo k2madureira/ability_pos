@@ -46,7 +46,7 @@ export function Observations(user: any){
 
           {matchesMedia? <span>{user?.instrument.name}</span>: <p/>}
           
-          <h3>Observations</h3>
+          <h3>Observações</h3>
             <ul className="observations">
               { 
               data?.map((ob:any)=> 

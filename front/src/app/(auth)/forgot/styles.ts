@@ -154,6 +154,7 @@ export const Content = styled.div`
   main {
     align-items: center;
     padding: 2rem;
+    padding-top: -5rem;
 
     p {
       text-align: left;

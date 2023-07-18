@@ -53,7 +53,7 @@ export function Theory({ instrumentDash =false, user }: {instrumentDash?: boolea
          
          </>}
          {!isLoading && <>
-           <h3>Theory</h3>
+           <h3>Teoria</h3>
            <p >{data?.description || ''}</p>
            <div className="instrument-image-container">
              <S.Icon
