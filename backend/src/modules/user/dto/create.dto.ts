@@ -29,11 +29,6 @@ export class UserRequest {
 
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
-  password: string;
-
-  @ApiProperty()
-  @IsString()
   @IsOptional()
   urlImage?: string;
 
@@ -79,10 +74,10 @@ export class UserRequest {
   @Validate(manyMain, {
     message: ONE_MAIN,
   })
-  methods?: Methods[];
+  methods?: Methods;
 
   @ApiProperty()
   @IsArray()
   @IsOptional()
-  groups?: Groups[];
+  groups?: Groups;
 }
